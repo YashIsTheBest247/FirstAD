@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from collections import defaultdict
 from dataclasses import dataclass
+from datetime import date, timedelta
 
 from app.schemas.production import (
     Breakdown,
@@ -173,3 +174,46 @@ def derive_cast(script: ParsedScript) -> list[tuple[str, list[str]]]:
             appearances[character.strip().upper()].append(scene.number)
 
     return sorted(appearances.items(), key=lambda kv: (-len(kv[1]), kv[0]))
+
+
+def next_working_day(day: date) -> date:
+    """The next date that is not a weekend."""
+    nxt = day + timedelta(days=1)
+    while nxt.weekday() >= 5:  # 5 = Saturday, 6 = Sunday
+        nxt += timedelta(days=1)
+    return nxt
+
+
+def assign_shoot_dates(days: list[ShootDay], start: date) -> None:
+    """Put a real date on every shooting day.
+
+    A schedule without dates cannot book anything. "Day 4" does not tell a
+    location manager whether the permit will have cleared, and a call sheet
+    without a date is not a call sheet.
+
+    Six-day weeks happen, but the default working week is five days, so
+    weekends are skipped. If the start date itself lands on a weekend it is
+    moved forward rather than silently shooting on a Saturday.
+    """
+    if not days:
+        return
+
+    current = start
+    while current.weekday() >= 5:
+        current += timedelta(days=1)
+
+    for index, day in enumerate(days):
+        if index > 0:
+            current = next_working_day(current)
+        day.shoot_date = current
+
+
+def default_start_date(today: date | None = None) -> date:
+    """A sensible default start: the Monday after next.
+
+    Not tomorrow, because nothing shoots tomorrow, and the location research
+    routinely reports permit lead times of one to two weeks.
+    """
+    today = today or date.today()
+    days_until_monday = (7 - today.weekday()) % 7 or 7
+    return today + timedelta(days=days_until_monday + 7)

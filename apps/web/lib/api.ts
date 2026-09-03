@@ -43,7 +43,7 @@ export async function getSample(): Promise<{ filename: string; setting: string; 
  * keep whatever partial record is left in the buffer.
  */
 export async function* streamAnalysis(
-  body: { text: string; filename: string; setting: string },
+  body: { text: string; filename: string; setting: string; start_date?: string },
   signal?: AbortSignal,
 ): AsyncGenerator<PipelineEvent> {
   const res = await fetch(`${API_BASE}/api/analyse`, {
@@ -167,6 +167,19 @@ export type CsvDocument = (typeof CSV_DOCUMENTS)[number];
 /** Download links are plain URLs so the browser handles the save itself. */
 export function csvUrl(runId: string, document: CsvDocument): string {
   return `${API_BASE}/api/runs/${encodeURIComponent(runId)}/export/${document}.csv`;
+}
+
+export const PDF_DOCUMENTS = ["call-sheets", "clearance"] as const;
+
+export type PdfDocument = (typeof PDF_DOCUMENTS)[number];
+
+/**
+ * The two documents that get distributed rather than edited: a call sheet goes
+ * to the whole unit the night before, a clearance report goes to the insurer.
+ * Everything else is CSV because it belongs in a spreadsheet.
+ */
+export function pdfUrl(runId: string, document: PdfDocument): string {
+  return `${API_BASE}/api/runs/${encodeURIComponent(runId)}/export/${document}.pdf`;
 }
 
 export function jsonUrl(runId: string): string {

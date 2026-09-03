@@ -18,6 +18,7 @@ import json
 import logging
 import time
 import uuid
+from datetime import date
 from typing import Any, AsyncIterator
 
 from app.agents.crew import (
@@ -30,7 +31,12 @@ from app.agents.crew import (
 from app.core.adk_runtime import AgentExecutionError, run_agent
 from app.core.clearance_rules import is_fiction_phone, pick_canonical, same_reference
 from app.core.config import get_settings
-from app.core.scheduling import derive_cast, optimise_stripboard
+from app.core.scheduling import (
+    assign_shoot_dates,
+    default_start_date,
+    derive_cast,
+    optimise_stripboard,
+)
 from app.core.screenplay import detect_format, parse_screenplay
 from app.schemas.production import (
     Breakdown,
@@ -88,11 +94,20 @@ def _chunks(items: list[Any], size: int) -> list[list[Any]]:
 class PipelineRun:
     """One screenplay moving through the crew."""
 
-    def __init__(self, raw_text: str, filename: str, setting: str) -> None:
+    def __init__(
+        self,
+        raw_text: str,
+        filename: str,
+        setting: str,
+        start_date: date | None = None,
+    ) -> None:
         self.run_id = uuid.uuid4().hex[:12]
         self.raw_text = raw_text
         self.filename = filename
         self.setting = setting.strip() or "an unnamed United States city"
+        # Without a real first day the schedule cannot be booked against
+        # anything, and permit lead times mean nothing.
+        self.start_date = start_date or default_start_date()
         self.crew = build_crew()
         self.research = ParallelResearch()
         self.trace: list[StageTrace] = []
@@ -456,6 +471,8 @@ class PipelineRun:
         board.shoot_day_count = len(board.days)
         board.company_moves = sum(1 for d in board.days if d.company_move)
 
+        assign_shoot_dates(board.days, self.start_date)
+
         # Cast work days are derivable from the board, and the agent frequently
         # leaves them empty, which silently breaks the day-out-of-days grid.
         for day in board.days:
@@ -620,6 +637,12 @@ class PipelineRun:
                 self.degraded.append(f"2nd AD: {exc}")
                 call_sheets = CallSheetSet(call_sheets=[])
                 detail = "unavailable, no call sheets cut"
+
+            # The date belongs to the shooting day, not to the agent's opinion
+            # of it, so it is copied across rather than generated.
+            dates = {d.day_number: d.shoot_date for d in board.days}
+            for sheet in call_sheets.call_sheets:
+                sheet.shoot_date = dates.get(sheet.day_number)
             yield self._event(self._finish(e_call, detail))
 
             package = ProductionPackage(

@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { CSV_DOCUMENTS, csvUrl, jsonUrl, type RunSummary } from "@/lib/api";
+import {
+  CSV_DOCUMENTS,
+  PDF_DOCUMENTS,
+  csvUrl,
+  jsonUrl,
+  pdfUrl,
+  type RunSummary,
+} from "@/lib/api";
 import { Eyebrow } from "./ui";
 
 const DOC_LABELS: Record<string, string> = {
@@ -58,7 +65,26 @@ export function ExportBar({ runId, recorded }: { runId: string; recorded: boolea
         </div>
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-2 border-t border-[var(--line)] pt-4">
+      <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-[var(--line)] pt-4">
+        <span className="mr-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-3)]">
+          Print
+        </span>
+        {PDF_DOCUMENTS.map((doc) => (
+          <a
+            key={doc}
+            href={pdfUrl(runId, doc)}
+            download
+            className="press rounded-full border border-[var(--ink)] bg-[var(--ink)] px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--on-ink)] hover:bg-[var(--ink-3)]"
+          >
+            {DOC_LABELS[doc] ?? doc} · PDF
+          </a>
+        ))}
+      </div>
+
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <span className="mr-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-3)]">
+          Sheets
+        </span>
         {CSV_DOCUMENTS.map((doc) => (
           <a
             key={doc}

@@ -14,3 +14,4 @@ parallel-web==1.3.3
 
 # Screenplay ingestion
 pypdf==6.1.1
+reportlab==4.2.5

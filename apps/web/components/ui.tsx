@@ -167,3 +167,17 @@ export function eighths(total: number): string {
   if (rest === 0) return `${pages}`;
   return `${pages} ${rest}/8`;
 }
+
+
+/** A shooting date as a call sheet prints it: "Mon 14 Sep 2026". */
+export function shootDate(iso: string | null | undefined): string {
+  if (!iso) return "";
+  const d = new Date(`${iso}T00:00:00`);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString("en-GB", {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}

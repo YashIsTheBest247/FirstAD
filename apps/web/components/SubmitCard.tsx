@@ -10,7 +10,12 @@ export function SubmitCard({
   disabled,
   disabledReason,
 }: {
-  onRun: (input: { text: string; filename: string; setting: string }) => void;
+  onRun: (input: {
+    text: string;
+    filename: string;
+    setting: string;
+    start_date?: string;
+  }) => void;
   onLoadSample: () => Promise<{ text: string; filename: string; setting: string }>;
   running: boolean;
   disabled: boolean;
@@ -19,6 +24,8 @@ export function SubmitCard({
   const [text, setText] = useState("");
   const [filename, setFilename] = useState("untitled.fountain");
   const [setting, setSetting] = useState("Chicago, Illinois");
+  // Empty means "let the API pick", which is the Monday after next.
+  const [startDate, setStartDate] = useState("");
   const [dragging, setDragging] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
@@ -131,13 +138,30 @@ export function SubmitCard({
                 searches, because a name only becomes a legal problem in a place. An
                 alderman in Chicago is not an alderman in Atlanta.
               </p>
+
+              <label className="mt-5 block">
+                <Eyebrow>First day of photography</Eyebrow>
+                <input
+                  type="date"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                  className="mt-2 w-full rounded-[var(--r-sm)] border border-[var(--line)] bg-[var(--white)] px-3.5 py-2.5 text-[14px] text-[var(--text)] focus:border-[var(--ink)] focus:outline-none"
+                />
+              </label>
+              <p className="mt-3 text-[12.5px] leading-relaxed text-[var(--text-2)]">
+                Every shooting day gets a real date, weekends skipped. Leave it blank and
+                the schedule starts the Monday after next, which is about the lead time a
+                film permit needs.
+              </p>
             </div>
 
             <div>
               <button
                 type="button"
                 disabled={!ready}
-                onClick={() => onRun({ text, filename, setting })}
+                onClick={() =>
+                  onRun({ text, filename, setting, start_date: startDate || undefined })
+                }
                 className="pill pill-lime relative w-full justify-center overflow-hidden py-3.5 text-[13px]"
               >
                 {running ? "Crew working" : "Break it down"}

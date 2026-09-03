@@ -1,0 +1,2320 @@
+{
+ "run_id": "dc45887be46b",
+ "saved_at": "2026-09-03T19:05:09+00:00",
+ "setting": "Chicago, Illinois",
+ "searches": 0,
+ "recorded": true,
+ "package": {
+  "run_id": "dc45887be46b",
+  "script": {
+   "header": {
+    "title": "THE PROJECTIONIST",
+    "author": "Greenlight Sample Material",
+    "page_count": 3.5,
+    "scene_count": 14,
+    "format_detected": "fountain"
+   },
+   "scenes": [
+    {
+     "number": "1",
+     "slugline": "INT. ARCADIA THEATER - PROJECTION BOOTH - NIGHT",
+     "interior": "INT",
+     "location": "ARCADIA THEATER - PROJECTION BOOTH",
+     "time_of_day": "NIGHT",
+     "page_start": 1.0,
+     "eighths": 3,
+     "synopsis": "Marisol threads film in the projection booth and ignores her buzzing phone.",
+     "characters": [
+      "MARISOL"
+     ],
+     "background": [],
+     "raw_text": "INT. ARCADIA THEATER - PROJECTION BOOTH - NIGHT\n\nA cramped room, hot as an engine block. Two carbon-arc projectors face the porthole windows. MARISOL VEGA, 40s, threads film with the patience of someone who has done it ten thousand times.\n\nThe reel catches. Light stabs through the port.\n\nMARISOL\n(to the machine)\nThere you go. Behave.\n\nShe checks a wall clock. 11:40. Through the port, a half-empty house watches a black-and-white picture.\n\nHer phone buzzes on the rewind bench. She ignores it. It buzzes again.\n\nMARISOL (CONT'D)\nNobody good calls at eleven forty."
+    },
+    {
+     "number": "2",
+     "slugline": "EXT. ARCADIA THEATER - MARQUEE - NIGHT",
+     "interior": "EXT",
+     "location": "ARCADIA THEATER - MARQUEE",
+     "time_of_day": "NIGHT",
+     "page_start": 1.4,
+     "eighths": 1,
+     "synopsis": "A black sedan idles outside the Arcadia Theater under the burning marquee.",
+     "characters": [],
+     "background": [],
+     "raw_text": "EXT. ARCADIA THEATER - MARQUEE - NIGHT\n\nThe marquee burns orange against a wet street. Half the letters are dark. Rain beads on the poster cases.\n\nA black sedan idles at the curb, Illinois plate JRK-4482. Wipers going. Nobody gets out."
+    },
+    {
+     "number": "3",
+     "slugline": "INT. ARCADIA THEATER - LOBBY - NIGHT",
+     "interior": "INT",
+     "location": "ARCADIA THEATER - LOBBY",
+     "time_of_day": "NIGHT",
+     "page_start": 1.5,
+     "eighths": 4,
+     "synopsis": "Teddy informs Marisol that the Arcadia Theater's paper has been sold to a development outfit.",
+     "characters": [
+      "TEDDY",
+      "MARISOL"
+     ],
+     "background": [],
+     "raw_text": "INT. ARCADIA THEATER - LOBBY - NIGHT\n\nTEDDY, 19, sweeps popcorn into a dustpan under the concession glass. The carpet is worn to canvas.\n\nMarisol comes down the stairs, coat on.\n\nTEDDY\nMr. Sandoval called twice.\n\nMARISOL\nAbout the boiler?\n\nTEDDY\nAbout the building.\n\nMarisol stops on the last stair.\n\nTEDDY (CONT'D)\nHe said Fifth Street Savings and Loan sold the paper. To a development outfit.\n\nMARISOL\nWhich one.\n\nTEDDY\nHe wouldn't say on the phone."
+    },
+    {
+     "number": "4",
+     "slugline": "EXT. ARCADIA THEATER - SIDEWALK - NIGHT",
+     "interior": "EXT",
+     "location": "ARCADIA THEATER - SIDEWALK",
+     "time_of_day": "NIGHT",
+     "page_start": 2.1,
+     "eighths": 1,
+     "synopsis": "Marisol exits the theater, observes the sedan pulling away, and notes its license plate.",
+     "characters": [
+      "MARISOL"
+     ],
+     "background": [],
+     "raw_text": "EXT. ARCADIA THEATER - SIDEWALK - NIGHT\n\nMarisol steps out under the marquee, pulls her collar up. The sedan's headlights snap on. It pulls away slow, deliberate, and turns north.\n\nShe watches it go. Writes the plate on her wrist in pen."
+    },
+    {
+     "number": "5",
+     "slugline": "INT. DUFFY'S TAP - NIGHT",
+     "interior": "INT",
+     "location": "DUFFY'S TAP",
+     "time_of_day": "NIGHT",
+     "page_start": 2.2,
+     "eighths": 3,
+     "synopsis": "Marisol asks Detective Ray Okonkwo to run a license plate for her.",
+     "characters": [
+      "RAY",
+      "MARISOL"
+     ],
+     "background": [],
+     "raw_text": "INT. DUFFY'S TAP - NIGHT\n\nA narrow bar with a bad television. DETECTIVE RAY OKONKWO, 50s, nurses a soda water. Marisol slides onto the stool beside him and shows him her wrist.\n\nRAY\nYou want me to run a plate because it parked.\n\nMARISOL\nIt parked for forty minutes and nobody bought a ticket.\n\nRAY\nThat is not a crime. That is a Tuesday.\n\nMARISOL\nRay.\n\nHe looks at the wrist. Sighs. Copies the number onto a napkin.\n\nRAY\nIf it comes back to anybody with a title, I never did this."
+    },
+    {
+     "number": "6",
+     "slugline": "EXT. NORTH KEDZIE AVENUE - DAY",
+     "interior": "EXT",
+     "location": "NORTH KEDZIE AVENUE",
+     "time_of_day": "DAY",
+     "page_start": 2.6,
+     "eighths": 1,
+     "synopsis": "Marisol discovers a development sign for Holloway Partners showing glass towers where the Arcadia Theater should be.",
+     "characters": [
+      "MARISOL"
+     ],
+     "background": [],
+     "raw_text": "EXT. NORTH KEDZIE AVENUE - DAY\n\nA block of shuttered storefronts. Marisol walks with a folder under her arm, checking numbers. She stops at 1847 North Kedzie Avenue.\n\nA development sign is bolted over the door. HOLLOWAY PARTNERS. Beneath it, a rendering of glass towers where the theater should be."
+    },
+    {
+     "number": "7",
+     "slugline": "INT. CITY HALL - CORRIDOR - DAY",
+     "interior": "INT",
+     "location": "CITY HALL - CORRIDOR",
+     "time_of_day": "DAY",
+     "page_start": 2.8,
+     "eighths": 3,
+     "synopsis": "Marisol confronts Alderman Holloway about the Arcadia, but he dismisses her and an aide disposes of her folder.",
+     "characters": [
+      "MARISOL",
+      "HOLLOWAY"
+     ],
+     "background": [
+      "aides, 2"
+     ],
+     "raw_text": "INT. CITY HALL - CORRIDOR - DAY\n\nMarble and noise. ALDERMAN GRANT HOLLOWAY, 60s, moves fast with two aides. Marisol steps into his path with the folder.\n\nMARISOL\nAlderman. The Arcadia.\n\nHOLLOWAY\n(not slowing)\nLandmarks made their determination.\n\nMARISOL\nLandmarks never inspected it.\n\nHOLLOWAY\nThen file an appeal, ma'am.\n\nHe is past her. One aide takes the folder, and without breaking stride, drops it in a bin."
+    },
+    {
+     "number": "8",
+     "slugline": "INT. ARCADIA THEATER - PROJECTION BOOTH - DAY",
+     "interior": "INT",
+     "location": "ARCADIA THEATER - PROJECTION BOOTH",
+     "time_of_day": "DAY",
+     "page_start": 3.2,
+     "eighths": 1,
+     "synopsis": "Marisol finds an old film can labeled \"ARCADIA - COUNCIL HEARING - 1974\" in the projection booth.",
+     "characters": [
+      "MARISOL"
+     ],
+     "background": [],
+     "raw_text": "INT. ARCADIA THEATER - PROJECTION BOOTH - DAY\n\nDaylight through the port, which is wrong, which makes the room look like a corpse. Marisol pulls a film can from the back of a shelf. Dust comes off in a sheet.\n\nThe label, hand-inked: ARCADIA - COUNCIL HEARING - 1974.\n\nShe looks at the old Zenith projector in the corner, then at the can."
+    },
+    {
+     "number": "9",
+     "slugline": "INT. ARCADIA THEATER - AUDITORIUM - DAY",
+     "interior": "INT",
+     "location": "ARCADIA THEATER - AUDITORIUM",
+     "time_of_day": "DAY",
+     "page_start": 3.3,
+     "eighths": 1,
+     "synopsis": "Marisol watches grainy 16mm footage of a younger Holloway receiving an envelope while voting in a council chamber.",
+     "characters": [
+      "MARISOL"
+     ],
+     "background": [],
+     "raw_text": "INT. ARCADIA THEATER - AUDITORIUM - DAY\n\nOn screen: grainy 16mm of a council chamber. A YOUNGER HOLLOWAY, thirty years old, raises his hand to vote. Beside him, an envelope changes hands, plain as a handshake.\n\nMarisol stands in the aisle. Doesn't sit. Doesn't breathe."
+    },
+    {
+     "number": "10",
+     "slugline": "INT. ARCADIA THEATER - LOBBY - NIGHT",
+     "interior": "INT",
+     "location": "ARCADIA THEATER - LOBBY",
+     "time_of_day": "NIGHT",
+     "page_start": 3.5,
+     "eighths": 2,
+     "synopsis": "Marisol makes a call about \"1974\" from a payphone and then sees the black sedan outside again.",
+     "characters": [
+      "MARISOL"
+     ],
+     "background": [],
+     "raw_text": "INT. ARCADIA THEATER - LOBBY - NIGHT\n\nMarisol on the payphone, receiver tucked under her jaw.\n\nMARISOL\n(into phone)\nThree one two, five five five, zero one four seven. Tell him it's about 1974. He'll call back.\n\nShe hangs up. Through the glass doors, the black sedan is at the curb again."
+    },
+    {
+     "number": "11",
+     "slugline": "EXT. ARCADIA THEATER - ALLEY - NIGHT",
+     "interior": "EXT",
+     "location": "ARCADIA THEATER - ALLEY",
+     "time_of_day": "NIGHT",
+     "page_start": 3.7,
+     "eighths": 2,
+     "synopsis": "Marisol is attacked by two men in the alley, drops the film can, and escapes over a fence.",
+     "characters": [
+      "MARISOL"
+     ],
+     "background": [
+      "men, 2"
+     ],
+     "raw_text": "EXT. ARCADIA THEATER - ALLEY - NIGHT\n\nMarisol pushes out the fire door with the film can under her coat. Two MEN come around the dumpster.\n\nShe runs.\n\nA hand catches her sleeve. She twists free, drops the can. It rolls, unspooling film across the wet brick like a spill of light.\n\nSTUNT: Marisol is thrown against the dumpster, breaks free, and vaults a low fence."
+    },
+    {
+     "number": "12",
+     "slugline": "EXT. NORTH KEDZIE AVENUE - CONTINUOUS",
+     "interior": "EXT",
+     "location": "NORTH KEDZIE AVENUE",
+     "time_of_day": "NIGHT",
+     "page_start": 4.0,
+     "eighths": 1,
+     "synopsis": "Marisol runs into traffic after escaping the alley, narrowly avoiding a collision with a delivery truck.",
+     "characters": [
+      "MARISOL"
+     ],
+     "background": [],
+     "raw_text": "EXT. NORTH KEDZIE AVENUE - CONTINUOUS\n\nShe comes out of the alley into traffic. A delivery truck brakes hard, horn screaming. She keeps going."
+    },
+    {
+     "number": "13",
+     "slugline": "INT. DUFFY'S TAP - NIGHT",
+     "interior": "INT",
+     "location": "DUFFY'S TAP",
+     "time_of_day": "NIGHT",
+     "page_start": 4.1,
+     "eighths": 2,
+     "synopsis": "Marisol shows Ray a piece of ruined film, and he confirms the car plate belongs to Holloway Partners, prompting them to retrieve the rest of the film.",
+     "characters": [
+      "RAY",
+      "MARISOL"
+     ],
+     "background": [],
+     "raw_text": "INT. DUFFY'S TAP - NIGHT\n\nRay is at the same stool. Marisol arrives soaked, hands shaking, holding four feet of ruined film.\n\nRAY\nThe plate comes back to a leasing company. The leasing company comes back to Holloway Partners.\n\nMARISOL\nI had the rest of it. In the alley.\n\nRAY\nThen we go get it."
+    },
+    {
+     "number": "14",
+     "slugline": "EXT. ARCADIA THEATER - MARQUEE - NIGHT",
+     "interior": "EXT",
+     "location": "ARCADIA THEATER - MARQUEE",
+     "time_of_day": "NIGHT",
+     "page_start": 4.3,
+     "eighths": 2,
+     "synopsis": "Ray and Marisol arrive at the now-dark Arcadia Theater to find a city notice taped to the door.",
+     "characters": [
+      "RAY",
+      "MARISOL"
+     ],
+     "background": [],
+     "raw_text": "EXT. ARCADIA THEATER - MARQUEE - NIGHT\n\nRay's sedan pulls up. The marquee is dark now. Every letter.\n\nA city notice is taped to the door, still curling at the corner.\n\nThey look up at it, rain coming down, and the theater looks back.\n\nFADE OUT."
+    }
+   ]
+  },
+  "breakdown": {
+   "scenes": [
+    {
+     "scene_number": "#1",
+     "elements": [
+      {
+       "category": "cast",
+       "name": "MARISOL VEGA",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "set_dressing",
+       "name": "Carbon-arc projectors",
+       "note": "Two, facing porthole windows",
+       "flags_department": false
+      },
+      {
+       "category": "props",
+       "name": "Film reel",
+       "note": "Marisol threads film",
+       "flags_department": false
+      },
+      {
+       "category": "props",
+       "name": "Wall clock",
+       "note": "Marisol checks the time (11:40)",
+       "flags_department": false
+      },
+      {
+       "category": "props",
+       "name": "Marisol's phone",
+       "note": "Buzzes on rewind bench",
+       "flags_department": false
+      },
+      {
+       "category": "set_dressing",
+       "name": "Rewind bench",
+       "note": "Phone rests here",
+       "flags_department": false
+      }
+     ],
+     "estimated_setup_hours": 2.0
+    },
+    {
+     "scene_number": "#2",
+     "elements": [
+      {
+       "category": "set_dressing",
+       "name": "Arcadia Theater marquee",
+       "note": "Burns orange, half letters dark",
+       "flags_department": false
+      },
+      {
+       "category": "special_effects",
+       "name": "Rain on street and poster cases",
+       "note": "Wet street, rain beads on poster cases",
+       "flags_department": true
+      },
+      {
+       "category": "vehicles",
+       "name": "Black sedan",
+       "note": "Idles at curb, Illinois plate JRK-4482",
+       "flags_department": true
+      }
+     ],
+     "estimated_setup_hours": 6.0
+    },
+    {
+     "scene_number": "#3",
+     "elements": [
+      {
+       "category": "cast",
+       "name": "TEDDY",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "cast",
+       "name": "MARISOL",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "props",
+       "name": "Popcorn",
+       "note": "Swept into dustpan",
+       "flags_department": false
+      },
+      {
+       "category": "props",
+       "name": "Dustpan",
+       "note": "Teddy sweeps popcorn",
+       "flags_department": false
+      },
+      {
+       "category": "wardrobe",
+       "name": "Marisol's coat",
+       "note": "Worn by Marisol",
+       "flags_department": false
+      }
+     ],
+     "estimated_setup_hours": 1.5
+    },
+    {
+     "scene_number": "#4",
+     "elements": [
+      {
+       "category": "cast",
+       "name": "MARISOL",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "vehicles",
+       "name": "Black sedan",
+       "note": "Pulls away and turns north",
+       "flags_department": true
+      },
+      {
+       "category": "props",
+       "name": "Pen",
+       "note": "Marisol writes plate on wrist",
+       "flags_department": false
+      }
+     ],
+     "estimated_setup_hours": 2.5
+    },
+    {
+     "scene_number": "#5",
+     "elements": [
+      {
+       "category": "cast",
+       "name": "DETECTIVE RAY OKONKWO",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "cast",
+       "name": "MARISOL",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "props",
+       "name": "Soda water",
+       "note": "Ray nurses",
+       "flags_department": false
+      },
+      {
+       "category": "props",
+       "name": "Napkin",
+       "note": "Ray copies number onto it",
+       "flags_department": false
+      },
+      {
+       "category": "props",
+       "name": "Pen",
+       "note": "Ray copies number",
+       "flags_department": false
+      },
+      {
+       "category": "set_dressing",
+       "name": "Bad television",
+       "note": "Part of bar dressing",
+       "flags_department": false
+      }
+     ],
+     "estimated_setup_hours": 1.5
+    },
+    {
+     "scene_number": "#6",
+     "elements": [
+      {
+       "category": "cast",
+       "name": "MARISOL",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "props",
+       "name": "Folder",
+       "note": "Marisol carries under arm",
+       "flags_department": false
+      },
+      {
+       "category": "set_dressing",
+       "name": "Development sign: HOLLOWAY PARTNERS",
+       "note": "Bolted over door at 1847 North Kedzie Avenue",
+       "flags_department": false
+      },
+      {
+       "category": "set_dressing",
+       "name": "Rendering of glass towers",
+       "note": "Beneath development sign",
+       "flags_department": false
+      }
+     ],
+     "estimated_setup_hours": 1.5
+    },
+    {
+     "scene_number": "#7",
+     "elements": [
+      {
+       "category": "cast",
+       "name": "ALDERMAN GRANT HOLLOWAY",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "cast",
+       "name": "MARISOL",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "background",
+       "name": "Aides (2)",
+       "note": "Move with Holloway; one takes folder",
+       "flags_department": false
+      },
+      {
+       "category": "props",
+       "name": "Folder",
+       "note": "Marisol steps into Holloway's path with it",
+       "flags_department": false
+      },
+      {
+       "category": "props",
+       "name": "Bin",
+       "note": "Aide drops folder into it",
+       "flags_department": false
+      }
+     ],
+     "estimated_setup_hours": 2.0
+    },
+    {
+     "scene_number": "#8",
+     "elements": [
+      {
+       "category": "cast",
+       "name": "MARISOL",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "props",
+       "name": "Film can",
+       "note": "Labeled 'ARCADIA - COUNCIL HEARING - 1974', pulled from shelf",
+       "flags_department": false
+      },
+      {
+       "category": "special_effects",
+       "name": "Dust",
+       "note": "Comes off film can in a sheet",
+       "flags_department": false
+      },
+      {
+       "category": "set_dressing",
+       "name": "Old Zenith projector",
+       "note": "In the corner, Marisol looks at it",
+       "flags_department": false
+      }
+     ],
+     "estimated_setup_hours": 2.0
+    },
+    {
+     "scene_number": "#9",
+     "elements": [
+      {
+       "category": "cast",
+       "name": "MARISOL",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "visual_effects",
+       "name": "Projected grainy 16mm film",
+       "note": "Of a council chamber, YOUNGER HOLLOWAY, envelope changing hands",
+       "flags_department": false
+      },
+      {
+       "category": "cast",
+       "name": "YOUNGER HOLLOWAY",
+       "note": "Appears on screen",
+       "flags_department": false
+      },
+      {
+       "category": "special_equipment",
+       "name": "Projector",
+       "note": "To display 16mm film on screen",
+       "flags_department": false
+      },
+      {
+       "category": "special_equipment",
+       "name": "Projection screen",
+       "note": "To display 16mm film",
+       "flags_department": false
+      },
+      {
+       "category": "props",
+       "name": "Envelope",
+       "note": "Changes hands on screen",
+       "flags_department": false
+      }
+     ],
+     "estimated_setup_hours": 3.5
+    },
+    {
+     "scene_number": "#10",
+     "elements": [
+      {
+       "category": "cast",
+       "name": "MARISOL",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "props",
+       "name": "Payphone",
+       "note": "Marisol uses it",
+       "flags_department": false
+      },
+      {
+       "category": "vehicles",
+       "name": "Black sedan",
+       "note": "At the curb again",
+       "flags_department": true
+      }
+     ],
+     "estimated_setup_hours": 2.0
+    },
+    {
+     "scene_number": "11",
+     "elements": [
+      {
+       "category": "cast",
+       "name": "Marisol",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "background",
+       "name": "Two MEN",
+       "note": "for chase in alley",
+       "flags_department": false
+      },
+      {
+       "category": "stunts",
+       "name": "Marisol",
+       "note": "thrown against dumpster, vaults low fence",
+       "flags_department": true
+      },
+      {
+       "category": "stunts",
+       "name": "Two MEN",
+       "note": "for physical interaction during chase",
+       "flags_department": true
+      },
+      {
+       "category": "props",
+       "name": "film can",
+       "note": "held by Marisol",
+       "flags_department": false
+      },
+      {
+       "category": "props",
+       "name": "film",
+       "note": "ruined film for unspooling effect",
+       "flags_department": false
+      },
+      {
+       "category": "wardrobe",
+       "name": "Marisol's coat",
+       "note": "to conceal film can",
+       "flags_department": false
+      },
+      {
+       "category": "set_dressing",
+       "name": "fire door",
+       "note": "theater exit",
+       "flags_department": false
+      },
+      {
+       "category": "set_dressing",
+       "name": "dumpster",
+       "note": "for stunt interaction",
+       "flags_department": false
+      },
+      {
+       "category": "set_dressing",
+       "name": "low fence",
+       "note": "for Marisol to vault",
+       "flags_department": false
+      },
+      {
+       "category": "special_effects",
+       "name": "rain effect",
+       "note": "for wet brick and continuous rain",
+       "flags_department": true
+      }
+     ],
+     "estimated_setup_hours": 5.0
+    },
+    {
+     "scene_number": "12",
+     "elements": [
+      {
+       "category": "cast",
+       "name": "Marisol",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "vehicles",
+       "name": "delivery truck",
+       "note": "for near-miss with Marisol",
+       "flags_department": true
+      },
+      {
+       "category": "sound",
+       "name": "truck horn screaming",
+       "note": "practical or playback for impact",
+       "flags_department": false
+      },
+      {
+       "category": "special_equipment",
+       "name": "traffic control",
+       "note": "for filming on public street",
+       "flags_department": true
+      }
+     ],
+     "estimated_setup_hours": 3.0
+    },
+    {
+     "scene_number": "13",
+     "elements": [
+      {
+       "category": "cast",
+       "name": "Ray",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "cast",
+       "name": "Marisol",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "props",
+       "name": "ruined film",
+       "note": "Marisol holds four feet of it",
+       "flags_department": false
+      },
+      {
+       "category": "wardrobe",
+       "name": "Marisol's costume (soaked)",
+       "note": "to show she's been in the rain",
+       "flags_department": false
+      },
+      {
+       "category": "makeup_hair",
+       "name": "Marisol (soaked look)",
+       "note": "to show she's been in the rain",
+       "flags_department": false
+      },
+      {
+       "category": "set_dressing",
+       "name": "bar stool",
+       "note": "Ray's specific seating",
+       "flags_department": false
+      }
+     ],
+     "estimated_setup_hours": 1.75
+    },
+    {
+     "scene_number": "14",
+     "elements": [
+      {
+       "category": "cast",
+       "name": "Ray",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "cast",
+       "name": "Marisol",
+       "note": null,
+       "flags_department": false
+      },
+      {
+       "category": "vehicles",
+       "name": "Ray's sedan",
+       "note": "pulls up to theater",
+       "flags_department": true
+      },
+      {
+       "category": "set_dressing",
+       "name": "dark marquee",
+       "note": "no letters lit",
+       "flags_department": false
+      },
+      {
+       "category": "set_dressing",
+       "name": "city notice",
+       "note": "taped to door, curling",
+       "flags_department": false
+      },
+      {
+       "category": "special_effects",
+       "name": "rain coming down",
+       "note": "continuous rain effect",
+       "flags_department": true
+      }
+     ],
+     "estimated_setup_hours": 3.5
+    }
+   ]
+  },
+  "clearance": {
+   "entities": [
+    {
+     "id": "person-marisol-vega",
+     "text": "MARISOL VEGA",
+     "category": "person_name",
+     "scene_numbers": [
+      "#1",
+      "#3",
+      "#4",
+      "#5",
+      "#6",
+      "#7",
+      "#8",
+      "#9",
+      "#10"
+     ],
+     "page_refs": [
+      1.0,
+      1.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      3.0,
+      3.0,
+      3.0
+     ],
+     "context": "MARISOL VEGA, 40s, threads film with the patience of someone who has done it ten thousand times. ... Marisol comes down the stairs, coat on. ... Marisol steps out under the marquee, pulls her collar up. She watches it go. Writes the plate on her wrist in pen. ... Marisol slides onto the stool beside him and shows him her wrist. MARISOL It parked for forty minutes and nobody bought a ticket. ... Marisol walks with a folder under her arm, checking numbers. She stops at 1847 North Kedzie Avenue. ... Marisol steps into his path with the folder. MARISOL Alderman. The Arcadia. ... MARISOL Landmarks never inspected it. ... Marisol pulls a film can from the back of a shelf. ... Marisol stands in the aisle. Doesn't sit. Doesn't breathe. ... Marisol on the payphone, receiver tucked under her jaw. MARISOL (into phone) Three one two, five five five, zero one four seven. Tell him it's about 1974. He'll call back.",
+     "portrayal": "Protagonist, film projectionist investigating suspicious activities and uncovering corruption related to the Arcadia Theater",
+     "is_negative_portrayal": false
+    },
+    {
+     "id": "business-arcadia-theater",
+     "text": "ARCADIA THEATER",
+     "category": "business",
+     "scene_numbers": [
+      "#1",
+      "#10",
+      "#2",
+      "#3",
+      "#4",
+      "#6",
+      "#7",
+      "#8",
+      "#9",
+      "11",
+      "14"
+     ],
+     "page_refs": [
+      1.0,
+      2.0,
+      3.0,
+      3.7,
+      4.3
+     ],
+     "context": "INT. ARCADIA THEATER - PROJECTION BOOTH - NIGHT ... EXT. ARCADIA THEATER - MARQUEE - NIGHT ... INT. ARCADIA THEATER - LOBBY - NIGHT ... About the building. ... EXT. ARCADIA THEATER - SIDEWALK - NIGHT ... Beneath it, a rendering of glass towers where the theater should be. ... MARISOL Alderman. The Arcadia. ... INT. ARCADIA THEATER - PROJECTION BOOTH - DAY ... The label, hand-inked: ARCADIA - COUNCIL HEARING - 1974. ... INT. ARCADIA THEATER - AUDITORIUM - DAY ... INT. ARCADIA THEATER - LOBBY - NIGHT",
+     "portrayal": "An old, worn-down movie theater, protagonist's place of work, target of a development scheme",
+     "is_negative_portrayal": false
+    },
+    {
+     "id": "license-plate-jrk-4482",
+     "text": "JRK-4482",
+     "category": "license_plate",
+     "scene_numbers": [
+      "#2",
+      "#4",
+      "#5"
+     ],
+     "page_refs": [
+      1.0,
+      2.0,
+      2.0
+     ],
+     "context": "A black sedan idles at the curb, Illinois plate JRK-4482. ... She watches it go. Writes the plate on her wrist in pen. ... Marisol slides onto the stool beside him and shows him her wrist. ... He looks at the wrist. Sighs. Copies the number onto a napkin.",
+     "portrayal": "License plate of a suspicious black sedan stalking the protagonist and the theater",
+     "is_negative_portrayal": true
+    },
+    {
+     "id": "person-teddy",
+     "text": "TEDDY",
+     "category": "person_name",
+     "scene_numbers": [
+      "#3"
+     ],
+     "page_refs": [
+      1.0
+     ],
+     "context": "TEDDY, 19, sweeps popcorn into a dustpan under the concession glass. ... TEDDY Mr. Sandoval called twice.",
+     "portrayal": "Young employee of the Arcadia Theater who informs Marisol about recent developments",
+     "is_negative_portrayal": false
+    },
+    {
+     "id": "person-mr-sandoval",
+     "text": "Mr. Sandoval",
+     "category": "person_name",
+     "scene_numbers": [
+      "#3"
+     ],
+     "page_refs": [
+      1.0
+     ],
+     "context": "TEDDY Mr. Sandoval called twice. ... He said Fifth Street Savings and Loan sold the paper. To a development outfit.",
+     "portrayal": "Informant to Teddy about the Arcadia Theater's financial situation",
+     "is_negative_portrayal": false
+    },
+    {
+     "id": "business-fifth-street-savings-and-loan",
+     "text": "Fifth Street Savings and Loan",
+     "category": "business",
+     "scene_numbers": [
+      "#3"
+     ],
+     "page_refs": [
+      1.0
+     ],
+     "context": "He said Fifth Street Savings and Loan sold the paper. To a development outfit.",
+     "portrayal": "Bank that sold the 'paper' (mortgage/deed) for the Arcadia Theater to a development outfit",
+     "is_negative_portrayal": false
+    },
+    {
+     "id": "business-duffys-tap",
+     "text": "DUFFY'S TAP",
+     "category": "business",
+     "scene_numbers": [
+      "#5",
+      "13"
+     ],
+     "page_refs": [
+      2.0,
+      4.1
+     ],
+     "context": "INT. DUFFY'S TAP - NIGHT A narrow bar with a bad television.",
+     "portrayal": "Bar where Marisol meets with Detective Okonkwo, neutral background location",
+     "is_negative_portrayal": false
+    },
+    {
+     "id": "person-detective-ray-okonkwo",
+     "text": "DETECTIVE RAY OKONKWO",
+     "category": "person_name",
+     "scene_numbers": [
+      "#5"
+     ],
+     "page_refs": [
+      2.0
+     ],
+     "context": "DETECTIVE RAY OKONKWO, 50s, nurses a soda water. ... RAY You want me to run a plate because it parked. ... MARISOL Ray.",
+     "portrayal": "Police detective, friend or acquaintance of Marisol, reluctantly helps her run a license plate",
+     "is_negative_portrayal": false
+    },
+    {
+     "id": "address-1847-north-kedzie-avenue",
+     "text": "1847 North Kedzie Avenue",
+     "category": "address",
+     "scene_numbers": [
+      "#6"
+     ],
+     "page_refs": [
+      2.0
+     ],
+     "context": "She stops at 1847 North Kedzie Avenue.",
+     "portrayal": "Street address of Holloway Partners, the development company targeting the Arcadia Theater",
+     "is_negative_portrayal": false
+    },
+    {
+     "id": "business-holloway-partners",
+     "text": "HOLLOWAY PARTNERS",
+     "category": "business",
+     "scene_numbers": [
+      "#6",
+      "13"
+     ],
+     "page_refs": [
+      2.0,
+      4.1
+     ],
+     "context": "A development sign is bolted over the door. HOLLOWAY PARTNERS. Beneath it, a rendering of glass towers where the theater should be.",
+     "portrayal": "Development firm seeking to demolish the Arcadia Theater, implied to be involved in corrupt practices with Alderman Holloway",
+     "is_negative_portrayal": true
+    },
+    {
+     "id": "organisation-city-hall",
+     "text": "CITY HALL",
+     "category": "organisation",
+     "scene_numbers": [
+      "#7"
+     ],
+     "page_refs": [
+      2.0
+     ],
+     "context": "INT. CITY HALL - CORRIDOR - DAY Marble and noise.",
+     "portrayal": "Government building, setting for the confrontation with Alderman Holloway",
+     "is_negative_portrayal": false
+    },
+    {
+     "id": "person-alderman-grant-holloway",
+     "text": "ALDERMAN GRANT HOLLOWAY",
+     "category": "person_name",
+     "scene_numbers": [
+      "#7",
+      "#9"
+     ],
+     "page_refs": [
+      2.0,
+      3.0
+     ],
+     "context": "ALDERMAN GRANT HOLLOWAY, 60s, moves fast with two aides. ... HOLLOWAY Landmarks made their determination. ... On screen: grainy 16mm of a council chamber. A YOUNGER HOLLOWAY, thirty years old, raises his hand to vote. Beside him, an envelope changes hands, plain as a handshake.",
+     "portrayal": "Corrupt city official (alderman) involved in a development scheme, shown taking a bribe in a past council hearing; antagonist",
+     "is_negative_portrayal": true
+    },
+    {
+     "id": "organisation-landmarks",
+     "text": "Landmarks",
+     "category": "organisation",
+     "scene_numbers": [
+      "#7"
+     ],
+     "page_refs": [
+      2.0
+     ],
+     "context": "HOLLOWAY Landmarks made their determination. MARISOL Landmarks never inspected it.",
+     "portrayal": "City department responsible for historic preservation, implied to have been circumvented or corrupted",
+     "is_negative_portrayal": true
+    },
+    {
+     "id": "brand-product-zenith",
+     "text": "Zenith",
+     "category": "brand_product",
+     "scene_numbers": [
+      "#8"
+     ],
+     "page_refs": [
+      3.0
+     ],
+     "context": "She looks at the old Zenith projector in the corner, then at the can.",
+     "portrayal": "Brand name of an old film projector, neutral background detail",
+     "is_negative_portrayal": false
+    },
+    {
+     "id": "artwork-music-arcadia-council-hearing-1974",
+     "text": "ARCADIA - COUNCIL HEARING - 1974",
+     "category": "artwork_music",
+     "scene_numbers": [
+      "#8"
+     ],
+     "page_refs": [
+      3.0
+     ],
+     "context": "The label, hand-inked: ARCADIA - COUNCIL HEARING - 1974.",
+     "portrayal": "Title and year on an old 16mm film can, depicting a corrupt council hearing",
+     "is_negative_portrayal": false
+    },
+    {
+     "id": "real-event-1974-council-bribe",
+     "text": "1974",
+     "category": "real_event",
+     "scene_numbers": [
+      "#9",
+      "#10"
+     ],
+     "page_refs": [
+      3.0,
+      3.0
+     ],
+     "context": "On screen: grainy 16mm of a council chamber. A YOUNGER HOLLOWAY, thirty years old, raises his hand to vote. Beside him, an envelope changes hands, plain as a handshake. ... MARISOL (into phone) ... Tell him it's about 1974. He'll call back.",
+     "portrayal": "Year of a past council hearing where Alderman Holloway was depicted taking a bribe; referred to by Marisol as the subject of her call",
+     "is_negative_portrayal": true
+    },
+    {
+     "id": "phone-number-312-555-0147",
+     "text": "Three one two, five five five, zero one four seven",
+     "category": "phone_number",
+     "scene_numbers": [
+      "#10"
+     ],
+     "page_refs": [
+      3.0
+     ],
+     "context": "MARISOL (into phone) Three one two, five five five, zero one four seven.",
+     "portrayal": "Phone number dialed by Marisol to inform someone about the 1974 corruption",
+     "is_negative_portrayal": false
+    },
+    {
+     "id": "person-marisol",
+     "text": "Marisol",
+     "category": "person_name",
+     "scene_numbers": [
+      "11",
+      "13"
+     ],
+     "page_refs": [
+      3.7,
+      4.1
+     ],
+     "context": "Marisol pushes out the fire door with the film can under her coat.",
+     "portrayal": "Protagonist, pushed out of a theater with film, attacked, then returns soaked with ruined film.",
+     "is_negative_portrayal": false
+    },
+    {
+     "id": "address-north-kedzie-avenue",
+     "text": "NORTH KEDZIE AVENUE",
+     "category": "address",
+     "scene_numbers": [
+      "12"
+     ],
+     "page_refs": [
+      4.0
+     ],
+     "context": "EXT. NORTH KEDZIE AVENUE - CONTINUOUS",
+     "portrayal": "Public street where Marisol runs into traffic.",
+     "is_negative_portrayal": false
+    },
+    {
+     "id": "person-ray",
+     "text": "Ray",
+     "category": "person_name",
+     "scene_numbers": [
+      "13",
+      "14"
+     ],
+     "page_refs": [
+      4.1,
+      4.3
+     ],
+     "context": "Ray is at the same stool.",
+     "portrayal": "Character assisting Marisol, investigating the incident.",
+     "is_negative_portrayal": false
+    }
+   ],
+   "findings": [
+    {
+     "entity_id": "business-holloway-partners",
+     "risk": "amber",
+     "rationale": "The negative portrayal of this development firm, coupled with its name sharing a surname with a corrupt alderman, warrants review due to potential plausible collision despite unavailable search results.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "license-plate-jrk-4482",
+     "risk": "green",
+     "rationale": "As a random alphanumeric license plate, there is no evidence from unavailable search results to suggest a specific, identifiable real-world match, making collision unlikely.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "organisation-landmarks",
+     "risk": "amber",
+     "rationale": "The generic term 'Landmarks' is commonly used for city preservation departments, and its negative portrayal makes a plausible collision with a real Chicago entity risky, despite unavailable search.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "person-alderman-grant-holloway",
+     "risk": "amber",
+     "rationale": "The combination of a public office (Alderman) and a specific name with a severely negative portrayal (corrupt, taking bribes) makes a plausible and damaging real-world collision a concern, despite unavailable search results.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "real-event-1974-council-bribe",
+     "risk": "green",
+     "rationale": "The year '1974' is a general reference and, without specific search results, does not by itself collide with a distinct, negatively portrayed real-world event.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "address-1847-north-kedzie-avenue",
+     "risk": "amber",
+     "rationale": "North Kedzie Avenue is a real street in Chicago, making it highly probable this specific address corresponds to an occupied building, warranting review due to the associated negatively portrayed business.",
+     "real_world_matches": [
+      "North Kedzie Avenue, Chicago, IL"
+     ],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "address-north-kedzie-avenue",
+     "risk": "amber",
+     "rationale": "North Kedzie Avenue is a real and identifiable street in Chicago, so its use as a location, even if neutrally portrayed, warrants review.",
+     "real_world_matches": [
+      "North Kedzie Avenue, Chicago, IL"
+     ],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "artwork-music-arcadia-council-hearing-1974",
+     "risk": "green",
+     "rationale": "This is presented as a fictional film title, and without specific search results, there is no evidence of collision with an identifiable copyrighted artwork.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "brand-product-zenith",
+     "risk": "amber",
+     "rationale": "Zenith is a real and identifiable brand, and its use, even as a neutral background detail, constitutes a reference to an active trademark that warrants review.",
+     "real_world_matches": [
+      "Zenith Electronics LLC"
+     ],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "business-arcadia-theater",
+     "risk": "amber",
+     "rationale": "'Arcadia Theater' is a common name for theaters, making a plausible real-world collision likely, especially given the Chicago setting, despite unavailable search.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "business-duffys-tap",
+     "risk": "amber",
+     "rationale": "'Duffy's Tap' is a common bar name, making a plausible real-world collision likely somewhere, despite unavailable search.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "business-fifth-street-savings-and-loan",
+     "risk": "amber",
+     "rationale": "This is a plausible, generic name for a financial institution, making a real-world collision likely somewhere, despite unavailable search.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "organisation-city-hall",
+     "risk": "amber",
+     "rationale": "Not researched in this run. The live-search budget was reached before this reference was reached, so it is reported as unreviewed rather than cleared.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "person-marisol-vega",
+     "risk": "amber",
+     "rationale": "Not researched in this run. The live-search budget was reached before this reference was reached, so it is reported as unreviewed rather than cleared.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "person-marisol",
+     "risk": "amber",
+     "rationale": "Not researched in this run. The live-search budget was reached before this reference was reached, so it is reported as unreviewed rather than cleared.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "person-ray",
+     "risk": "amber",
+     "rationale": "Not researched in this run. The live-search budget was reached before this reference was reached, so it is reported as unreviewed rather than cleared.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "person-teddy",
+     "risk": "amber",
+     "rationale": "Not researched in this run. The live-search budget was reached before this reference was reached, so it is reported as unreviewed rather than cleared.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "person-mr-sandoval",
+     "risk": "amber",
+     "rationale": "Not researched in this run. The live-search budget was reached before this reference was reached, so it is reported as unreviewed rather than cleared.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "person-detective-ray-okonkwo",
+     "risk": "amber",
+     "rationale": "Not researched in this run. The live-search budget was reached before this reference was reached, so it is reported as unreviewed rather than cleared.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    },
+    {
+     "entity_id": "phone-number-312-555-0147",
+     "risk": "amber",
+     "rationale": "Not researched in this run. The live-search budget was reached before this reference was reached, so it is reported as unreviewed rather than cleared.",
+     "real_world_matches": [],
+     "citations": [],
+     "suggested_alternatives": [],
+     "searched": false
+    }
+   ]
+  },
+  "locations": {
+   "locations": [
+    {
+     "location": "ARCADIA THEATER",
+     "jurisdiction": null,
+     "permit_required": false,
+     "permit_cost_note": null,
+     "lead_time_days": null,
+     "weather_window": null,
+     "hazards": [],
+     "vendor_notes": [],
+     "citations": []
+    },
+    {
+     "location": "DUFFY'S TAP",
+     "jurisdiction": null,
+     "permit_required": false,
+     "permit_cost_note": null,
+     "lead_time_days": null,
+     "weather_window": null,
+     "hazards": [],
+     "vendor_notes": [],
+     "citations": []
+    },
+    {
+     "location": "NORTH KEDZIE AVENUE",
+     "jurisdiction": null,
+     "permit_required": false,
+     "permit_cost_note": null,
+     "lead_time_days": null,
+     "weather_window": null,
+     "hazards": [],
+     "vendor_notes": [],
+     "citations": []
+    },
+    {
+     "location": "CITY HALL",
+     "jurisdiction": null,
+     "permit_required": false,
+     "permit_cost_note": null,
+     "lead_time_days": null,
+     "weather_window": null,
+     "hazards": [],
+     "vendor_notes": [],
+     "citations": []
+    }
+   ]
+  },
+  "stripboard": {
+   "days": [
+    {
+     "day_number": 1,
+     "shoot_date": null,
+     "unit": "Main Unit",
+     "location": "ARCADIA THEATER",
+     "scenes": [
+      {
+       "scene_number": "8",
+       "slugline": "INT. ARCADIA THEATER - PROJECTION BOOTH - DAY",
+       "strip_color": "white",
+       "eighths": 1,
+       "location": "ARCADIA THEATER - PROJECTION BOOTH",
+       "cast_ids": [
+        "1"
+       ],
+       "synopsis": "Marisol finds an old film can labeled \"ARCADIA - COUNCIL HEARING - 1974\" in the projection booth."
+      },
+      {
+       "scene_number": "9",
+       "slugline": "INT. ARCADIA THEATER - AUDITORIUM - DAY",
+       "strip_color": "white",
+       "eighths": 1,
+       "location": "ARCADIA THEATER - AUDITORIUM",
+       "cast_ids": [
+        "1"
+       ],
+       "synopsis": "Marisol watches grainy 16mm footage of a younger Holloway receiving an envelope while voting in a council chamber."
+      },
+      {
+       "scene_number": "7",
+       "slugline": "INT. CITY HALL - CORRIDOR - DAY",
+       "strip_color": "white",
+       "eighths": 3,
+       "location": "CITY HALL",
+       "cast_ids": [
+        "1",
+        "3"
+       ],
+       "synopsis": "Marisol confronts Alderman Holloway about the Arcadia, but he dismisses her and an aide disposes of her folder."
+      },
+      {
+       "scene_number": "6",
+       "slugline": "EXT. NORTH KEDZIE AVENUE - DAY",
+       "strip_color": "yellow",
+       "eighths": 1,
+       "location": "NORTH KEDZIE AVENUE",
+       "cast_ids": [
+        "1"
+       ],
+       "synopsis": "Marisol discovers a development sign for Holloway Partners showing glass towers where the Arcadia Theater should be."
+      },
+      {
+       "scene_number": "12",
+       "slugline": "EXT. NORTH KEDZIE AVENUE - CONTINUOUS",
+       "strip_color": "yellow",
+       "eighths": 1,
+       "location": "NORTH KEDZIE AVENUE",
+       "cast_ids": [
+        "1"
+       ],
+       "synopsis": "Marisol runs into traffic after escaping the alley, narrowly avoiding a collision with a delivery truck."
+      }
+     ],
+     "total_eighths": 7,
+     "company_move": false,
+     "notes": [
+      "Holloway (3) works today (1-day call).",
+      "Marisol (1) works today.",
+      "Includes two company moves (Arcadia to City Hall, City Hall to North Kedzie Avenue), impacting shooting hours despite low eighths count.",
+      "Scene 9 requires visual effects for projected film. Scene 12 requires stunts for Marisol and traffic control."
+     ]
+    },
+    {
+     "day_number": 2,
+     "shoot_date": null,
+     "unit": "Main Unit",
+     "location": "ARCADIA THEATER",
+     "scenes": [
+      {
+       "scene_number": "1",
+       "slugline": "INT. ARCADIA THEATER - PROJECTION BOOTH - NIGHT",
+       "strip_color": "blue",
+       "eighths": 3,
+       "location": "ARCADIA THEATER - PROJECTION BOOTH",
+       "cast_ids": [
+        "1"
+       ],
+       "synopsis": "Marisol threads film in the projection booth and ignores her buzzing phone."
+      },
+      {
+       "scene_number": "2",
+       "slugline": "EXT. ARCADIA THEATER - MARQUEE - NIGHT",
+       "strip_color": "green",
+       "eighths": 1,
+       "location": "ARCADIA THEATER - MARQUEE",
+       "cast_ids": [],
+       "synopsis": "A black sedan idles outside the Arcadia Theater under the burning marquee."
+      },
+      {
+       "scene_number": "3",
+       "slugline": "INT. ARCADIA THEATER - LOBBY - NIGHT",
+       "strip_color": "blue",
+       "eighths": 4,
+       "location": "ARCADIA THEATER - LOBBY",
+       "cast_ids": [
+        "4",
+        "1"
+       ],
+       "synopsis": "Teddy informs Marisol that the Arcadia Theater's paper has been sold to a development outfit."
+      },
+      {
+       "scene_number": "4",
+       "slugline": "EXT. ARCADIA THEATER - SIDEWALK - NIGHT",
+       "strip_color": "green",
+       "eighths": 1,
+       "location": "ARCADIA THEATER - SIDEWALK",
+       "cast_ids": [
+        "1"
+       ],
+       "synopsis": "Marisol exits the theater, observes the sedan pulling away, and notes its license plate."
+      },
+      {
+       "scene_number": "10",
+       "slugline": "INT. ARCADIA THEATER - LOBBY - NIGHT",
+       "strip_color": "blue",
+       "eighths": 2,
+       "location": "ARCADIA THEATER - LOBBY",
+       "cast_ids": [
+        "1"
+       ],
+       "synopsis": "Marisol makes a call about \"1974\" from a payphone and then sees the black sedan outside again."
+      },
+      {
+       "scene_number": "11",
+       "slugline": "EXT. ARCADIA THEATER - ALLEY - NIGHT",
+       "strip_color": "green",
+       "eighths": 2,
+       "location": "ARCADIA THEATER - ALLEY",
+       "cast_ids": [
+        "1"
+       ],
+       "synopsis": "Marisol is attacked by two men in the alley, drops the film can, and escapes over a fence."
+      },
+      {
+       "scene_number": "14",
+       "slugline": "EXT. ARCADIA THEATER - MARQUEE - NIGHT",
+       "strip_color": "green",
+       "eighths": 2,
+       "location": "ARCADIA THEATER - MARQUEE",
+       "cast_ids": [
+        "2",
+        "1"
+       ],
+       "synopsis": "Ray and Marisol arrive at the now-dark Arcadia Theater to find a city notice taped to the door."
+      }
+     ],
+     "total_eighths": 15,
+     "company_move": true,
+     "notes": [
+      "Company move from North Kedzie Avenue.",
+      "Teddy (4) works today (1-day call).",
+      "Ray (2) works today.",
+      "Marisol (1) works today.",
+      "Heavy night shoot with rain effects (Scenes 2, 11, 14), vehicles (Scenes 2, 4, 14), and stunts for Marisol and background performers (Scene 11)."
+     ]
+    },
+    {
+     "day_number": 3,
+     "shoot_date": null,
+     "unit": "Main Unit",
+     "location": "DUFFY'S TAP",
+     "scenes": [
+      {
+       "scene_number": "5",
+       "slugline": "INT. DUFFY'S TAP - NIGHT",
+       "strip_color": "blue",
+       "eighths": 3,
+       "location": "DUFFY'S TAP",
+       "cast_ids": [
+        "2",
+        "1"
+       ],
+       "synopsis": "Marisol asks Detective Ray Okonkwo to run a license plate for her."
+      },
+      {
+       "scene_number": "13",
+       "slugline": "INT. DUFFY'S TAP - NIGHT",
+       "strip_color": "blue",
+       "eighths": 2,
+       "location": "DUFFY'S TAP",
+       "cast_ids": [
+        "2",
+        "1"
+       ],
+       "synopsis": "Marisol shows Ray a piece of ruined film, and he confirms the car plate belongs to Holloway Partners, prompting them to retrieve the rest of the film."
+      }
+     ],
+     "total_eighths": 5,
+     "company_move": true,
+     "notes": [
+      "Company move from Arcadia Theater.",
+      "Ray (2) works today.",
+      "Marisol (1) works today.",
+      "Marisol's 'soaked look' in Scene 13 provides continuity from the previous night's alley chase (Scene 11).",
+      "Very short shooting day; schedule permits for Duffy's Tap if required (none listed)."
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "1",
+     "character": "MARISOL",
+     "scene_numbers": [
+      "1",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14"
+     ],
+     "work_days": [
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "id": "2",
+     "character": "RAY",
+     "scene_numbers": [
+      "5",
+      "13",
+      "14"
+     ],
+     "work_days": [
+      2,
+      3
+     ]
+    },
+    {
+     "id": "3",
+     "character": "HOLLOWAY",
+     "scene_numbers": [
+      "7"
+     ],
+     "work_days": [
+      1
+     ]
+    },
+    {
+     "id": "4",
+     "character": "TEDDY",
+     "scene_numbers": [
+      "3"
+     ],
+     "work_days": [
+      2
+     ]
+    }
+   ],
+   "company_moves": 2,
+   "shoot_day_count": 3,
+   "rationale": "This schedule consolidates the script's 27 eighths into three shooting days, balancing location efficiency with critical day/night separation. Day one groups all day scenes across three locations, requiring two company moves but avoiding inefficient single-scene days. Day two focuses solely on the extensive Arcadia Theater night work, comprising a substantial and complex night shoot with stunts and effects. Day three handles the remaining night interior scenes at Duffy's Tap, which is a short production day but essential for location grouping and maintaining story continuity with Marisol's 'soaked' appearance from the previous night's events."
+  },
+  "compliance": {
+   "flags": [
+    {
+     "severity": "blocker",
+     "rule": "10-hour turnaround",
+     "day_number": null,
+     "scene_numbers": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "10",
+      "11",
+      "14",
+      "5",
+      "13"
+     ],
+     "detail": "Cast 1 (Marisol) and Cast 2 (Ray) are scheduled for a 'Heavy night shoot' on Day 2, followed immediately by another night shoot on Day 3. The continuity note for Day 3 (Marisol's 'soaked look' from Day 2's alley chase) implies a direct or very tight transition, which would severely breach the minimum 10-hour turnaround requirement between wrap and next call for these performers.",
+     "remedy": "Reschedule Day 3's scenes (Scenes 5, 13) to allow a minimum of 12 hours off for Cast 1 (Marisol) and Cast 2 (Ray) after Day 2's night wrap. This may involve shifting Day 3 to a later calendar day or significantly adjusting call times."
+    },
+    {
+     "severity": "warning",
+     "rule": "Meal break within 6 hours",
+     "day_number": 1,
+     "scene_numbers": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "12"
+     ],
+     "detail": "Day 1 has 7 eighths of shooting but includes two company moves and a total of 12.0 hours of estimated setup. This significant amount of non-shooting time and complex setup could extend the workday beyond a typical duration, making it difficult to guarantee a meal break within 6 hours of call without incurring penalties.",
+     "remedy": "Re-sequence Day 1 to reduce the number of company moves or simplify the setup requirements for some scenes to shorten the overall workday and ensure timely meal breaks."
+    },
+    {
+     "severity": "warning",
+     "rule": "Meal break within 6 hours",
+     "day_number": 2,
+     "scene_numbers": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "10",
+      "11",
+      "14"
+     ],
+     "detail": "Day 2 is a 'Heavy night shoot' with 15 eighths and an extremely high 22.5 hours of estimated setup time for its scenes, involving extensive special effects, vehicles, and stunts. This indicates a severely overloaded day, making it highly probable that the crew will not be able to break for a meal within 6 hours, or subsequent 6-hour intervals, without incurring significant penalty payments.",
+     "remedy": "Break Day 2 into at least two separate shooting days or substantially reduce the number of complex scenes scheduled to ensure a manageable workday length and allow for timely meal breaks."
+    },
+    {
+     "severity": "advisory",
+     "rule": "Safety concerns on overloaded days",
+     "day_number": 1,
+     "scene_numbers": [
+      "12"
+     ],
+     "detail": "Day 1 includes Scene 12 which requires stunts for Marisol and traffic control for vehicle work on public roads. The day's notes also state that two company moves are 'impacting shooting hours despite low eighths count,' and the combined estimated setup for the day is 12.0 hours for only 7 eighths, indicating a tight and potentially overloaded schedule. This creates a safety risk when executing complex stunts and vehicle sequences.",
+     "remedy": "Re-evaluate the scope and complexity of Scene 12 or move it to a less loaded day to ensure ample time for safety briefings, setup, and execution without rushing due to a packed schedule and company moves."
+    },
+    {
+     "severity": "blocker",
+     "rule": "Safety concerns on overloaded days",
+     "day_number": 2,
+     "scene_numbers": [
+      "2",
+      "4",
+      "10",
+      "11",
+      "14"
+     ],
+     "detail": "Day 2 is a 'Heavy night shoot' with 15 eighths, involving extensive rain effects (Scenes 2, 11, 14), multiple vehicle actions (Scenes 2, 4, 10, 14), and significant stunts (Scene 11). The total estimated setup hours for this day's scenes amount to 22.5 hours. This is an extremely overloaded day, significantly increasing the risk of incidents and compromising safety for complex elements.",
+     "remedy": "Split Day 2 into at least two separate night shooting days to safely accommodate the extensive rain effects, vehicle work, and stunts, allowing dedicated time for safety meetings, precise execution, and supervision for each complex element."
+    },
+    {
+     "severity": "advisory",
+     "rule": "Exterior days with no cover set",
+     "day_number": 1,
+     "scene_numbers": [
+      "6",
+      "12"
+     ],
+     "detail": "Day 1 includes exterior day scenes (Scenes 6, 12) at North Kedzie Avenue. The schedule does not list any cover set for these scenes in case of inclement weather, leading to potential delays or lost shooting time if weather conditions are unfavorable.",
+     "remedy": "Identify and schedule a suitable cover set for the exterior Day 1 scenes (Scenes 6, 12) at North Kedzie Avenue, or ensure flexibility in the schedule to shift these scenes to another day with appropriate weather."
+    },
+    {
+     "severity": "advisory",
+     "rule": "Exterior days with no cover set",
+     "day_number": 2,
+     "scene_numbers": [
+      "2",
+      "4",
+      "11",
+      "14"
+     ],
+     "detail": "Day 2 includes multiple exterior night scenes (Scenes 2, 4, 11, 14) at Arcadia Theater. While rain effects are intended for some of these scenes, the schedule does not explicitly list a cover set. Unplanned adverse weather (e.g., strong winds, unexpected heavy rain beyond effects capabilities) could disrupt the shoot, especially given the day's complexity.",
+     "remedy": "Identify and schedule a suitable cover set for the exterior night scenes at Arcadia Theater (Scenes 2, 4, 11, 14) or develop a contingency plan for unexpected severe weather conditions beyond the intended rain effects."
+    }
+   ]
+  },
+  "budget": {
+   "above_the_line": [
+    {
+     "account": "1100",
+     "category": "Writer",
+     "detail": "Original Screenplay",
+     "amount_usd": 10000.0,
+     "driver": "Original 3.5-page screenplay 'THE PROJECTIONIST'"
+    },
+    {
+     "account": "1200",
+     "category": "Producer",
+     "detail": "Producer Fee",
+     "amount_usd": 15000.0,
+     "driver": "Oversight of independent production for a 3-day shoot"
+    },
+    {
+     "account": "1300",
+     "category": "Director",
+     "detail": "Director Fee",
+     "amount_usd": 20000.0,
+     "driver": "Directing a 3-day shoot with multiple locations, night work, stunts, and special effects"
+    },
+    {
+     "account": "1400",
+     "category": "Principal Cast",
+     "detail": "MARISOL (3 days)",
+     "amount_usd": 3000.0,
+     "driver": "Lead role, working 3 shoot days (Days 1, 2, 3)"
+    },
+    {
+     "account": "1401",
+     "category": "Principal Cast",
+     "detail": "RAY (2 days)",
+     "amount_usd": 1500.0,
+     "driver": "Supporting role, working 2 shoot days (Days 2, 3)"
+    },
+    {
+     "account": "1402",
+     "category": "Principal Cast",
+     "detail": "HOLLOWAY (1 day)",
+     "amount_usd": 500.0,
+     "driver": "Day player, working 1 shoot day (Day 1)"
+    },
+    {
+     "account": "1403",
+     "category": "Principal Cast",
+     "detail": "TEDDY (1 day)",
+     "amount_usd": 500.0,
+     "driver": "Day player, working 1 shoot day (Day 2)"
+    }
+   ],
+   "below_the_line": [
+    {
+     "account": "2100",
+     "category": "Production Management",
+     "detail": "Unit Production Manager & 1st Assistant Director",
+     "amount_usd": 5000.0,
+     "driver": "Managing a 3-day shoot with 2 company moves, night work, stunts, and special effects"
+    },
+    {
+     "account": "2110",
+     "category": "Production Staff",
+     "detail": "Production Assistants (2)",
+     "amount_usd": 1500.0,
+     "driver": "General production support for 3 shoot days with company moves"
+    },
+    {
+     "account": "2300",
+     "category": "Locations & Permits",
+     "detail": "Location Fees (Arcadia, City Hall, N. Kedzie, Duffy's)",
+     "amount_usd": 3000.0,
+     "driver": "Access and use of four distinct locations over 3 shoot days"
+    },
+    {
+     "account": "2310",
+     "category": "Locations & Permits",
+     "detail": "Traffic Control",
+     "amount_usd": 2000.0,
+     "driver": "Scene 12 requiring traffic control on North Kedzie Avenue for a near-miss vehicle stunt"
+    },
+    {
+     "account": "3100",
+     "category": "Camera Department",
+     "detail": "Camera Package & Crew",
+     "amount_usd": 6000.0,
+     "driver": "3-day shoot requiring specific camera setups for night exteriors and film look for Scene 9"
+    },
+    {
+     "account": "3200",
+     "category": "Grip & Electric",
+     "detail": "Lighting/Grip Package & Crew",
+     "amount_usd": 7500.0,
+     "driver": "Extensive night exterior lighting for scenes 1, 2, 3, 4, 10, 11, 14, and support for rain effects"
+    },
+    {
+     "account": "3300",
+     "category": "Sound Department",
+     "detail": "Sound Package & Mixer",
+     "amount_usd": 2500.0,
+     "driver": "On-set dialogue recording for all 3 shoot days across multiple locations"
+    },
+    {
+     "account": "4100",
+     "category": "Art Department",
+     "detail": "Production Designer & Art Director",
+     "amount_usd": 4000.0,
+     "driver": "Designing and overseeing sets for multiple locations and specific period/thematic elements"
+    },
+    {
+     "account": "4200",
+     "category": "Set Dressing & Props",
+     "detail": "Rentals & Purchases",
+     "amount_usd": 3500.0,
+     "driver": "Carbon-arc projectors, film cans, development sign, payphone, bar dressing, dumpster, fence, specific folders, and ruined film"
+    },
+    {
+     "account": "5100",
+     "category": "Wardrobe",
+     "detail": "Costume Designer & Wardrobe",
+     "amount_usd": 1500.0,
+     "driver": "Character-specific looks including Marisol's coat and continuity for 'soaked look' in Scene 13"
+    },
+    {
+     "account": "5200",
+     "category": "Hair & Makeup",
+     "detail": "H/MUA & Supplies",
+     "amount_usd": 1500.0,
+     "driver": "Character continuity and special 'soaked look' for Marisol in Scene 13"
+    },
+    {
+     "account": "6100",
+     "category": "Special Effects (Practical)",
+     "detail": "Rain Effects & Dust",
+     "amount_usd": 4000.0,
+     "driver": "Extensive practical rain effects for Scenes 2, 11, 14 and dust for Scene 8"
+    },
+    {
+     "account": "6200",
+     "category": "Stunts",
+     "detail": "Stunt Coordinator & Performers",
+     "amount_usd": 3000.0,
+     "driver": "Marisol's stunts (thrown, vaults fence, near-miss traffic) in Scenes 11 and 12, and two stunt performers for physical interaction in Scene 11"
+    },
+    {
+     "account": "7100",
+     "category": "Picture Vehicles & Drivers",
+     "detail": "Black Sedan, Delivery Truck, Ray's Sedan",
+     "amount_usd": 4500.0,
+     "driver": "Specific picture vehicles required for action and continuity in Scenes 2, 4, 10, 12, and 14"
+    },
+    {
+     "account": "7200",
+     "category": "Transportation",
+     "detail": "Trucking & Fuel",
+     "amount_usd": 2500.0,
+     "driver": "Equipment hauling for 3 shoot days and 2 company moves across various locations"
+    },
+    {
+     "account": "8100",
+     "category": "Catering",
+     "detail": "Cast & Crew Meals",
+     "amount_usd": 4500.0,
+     "driver": "Feeding approximately 25 cast and crew for 3 full shoot days"
+    }
+   ],
+   "post_and_other": [
+    {
+     "account": "9100",
+     "category": "Editorial",
+     "detail": "Editor & Software",
+     "amount_usd": 7000.0,
+     "driver": "Editing a 3.5-page short film with complex action and visual effects"
+    },
+    {
+     "account": "9200",
+     "category": "Sound Post Production",
+     "detail": "Sound Design & Mix",
+     "amount_usd": 4000.0,
+     "driver": "Enhancing dialogue, creating atmospheric soundscapes, and specific effects like truck horn (Scene 12)"
+    },
+    {
+     "account": "9300",
+     "category": "Music",
+     "detail": "Composer/Licensing",
+     "amount_usd": 3000.0,
+     "driver": "Original or licensed score to establish narrative tone"
+    },
+    {
+     "account": "9400",
+     "category": "Color Correction",
+     "detail": "Colorist Services",
+     "amount_usd": 2500.0,
+     "driver": "Ensuring visual consistency and aesthetic across various day/night and interior/exterior scenes"
+    },
+    {
+     "account": "9500",
+     "category": "Visual Effects (Post)",
+     "detail": "16mm Film Integration",
+     "amount_usd": 5000.0,
+     "driver": "Creation and integration of projected grainy 16mm film footage showing Younger Holloway for Scene 9"
+    },
+    {
+     "account": "9600",
+     "category": "Legal & Clearance",
+     "detail": "Clearance & Counsel",
+     "amount_usd": 8500.0,
+     "driver": "17 identified clearance items needing legal work, plus general production legal counsel"
+    },
+    {
+     "account": "9700",
+     "category": "Insurance",
+     "detail": "Production Insurance",
+     "amount_usd": 3000.0,
+     "driver": "Standard general liability and workers' compensation coverage for a 3-day shoot"
+    },
+    {
+     "account": "9800",
+     "category": "Deliverables",
+     "detail": "Mastering & Festival Prep",
+     "amount_usd": 2000.0,
+     "driver": "Preparing final film for exhibition, distribution, and festival submissions"
+    }
+   ],
+   "contingency_pct": 15.0,
+   "assumptions": [
+    "This budget assumes a US independent production operating at a low-to-mid budget scale.",
+    "Crew rates are estimated based on a 3-day shoot, non-union, with a mix of entry-level and experienced indie professionals.",
+    "Principal cast rates are flat deals for their respective work days.",
+    "All amounts are rounded for a top sheet level budget.",
+    "As per the provided location intelligence, no specific permit costs were listed for 'ARCADIA THEATER', 'DUFFY'S TAP', 'NORTH KEDZIE AVENUE', or 'CITY HALL', however, traffic control for a specific stunt is budgeted.",
+    "The budget accounts for 3 shooting days and 2 company moves as per the schedule."
+   ]
+  },
+  "call_sheets": [
+   {
+    "day_number": 1,
+    "shoot_date": null,
+    "general_call": "07:00",
+    "location": "ARCADIA THEATER",
+    "scenes": [
+     {
+      "scene_number": "8",
+      "slugline": "INT. ARCADIA THEATER - PROJECTION BOOTH - DAY",
+      "strip_color": "white",
+      "eighths": 1,
+      "location": "ARCADIA THEATER - PROJECTION BOOTH",
+      "cast_ids": [
+       "1"
+      ],
+      "synopsis": "Marisol finds an old film can labeled \"ARCADIA - COUNCIL HEARING - 1974\" in the projection booth."
+     },
+     {
+      "scene_number": "9",
+      "slugline": "INT. ARCADIA THEATER - AUDITORIUM - DAY",
+      "strip_color": "white",
+      "eighths": 1,
+      "location": "ARCADIA THEATER - AUDITORIUM",
+      "cast_ids": [
+       "1"
+      ],
+      "synopsis": "Marisol watches grainy 16mm footage of a younger Holloway receiving an envelope while voting in a council chamber."
+     },
+     {
+      "scene_number": "7",
+      "slugline": "INT. CITY HALL - CORRIDOR - DAY",
+      "strip_color": "white",
+      "eighths": 3,
+      "location": "CITY HALL",
+      "cast_ids": [
+       "1",
+       "3"
+      ],
+      "synopsis": "Marisol confronts Alderman Holloway about the Arcadia, but he dismisses her and an aide disposes of her folder."
+     },
+     {
+      "scene_number": "6",
+      "slugline": "EXT. NORTH KEDZIE AVENUE - DAY",
+      "strip_color": "yellow",
+      "eighths": 1,
+      "location": "NORTH KEDZIE AVENUE",
+      "cast_ids": [
+       "1"
+      ],
+      "synopsis": "Marisol discovers a development sign for Holloway Partners showing glass towers where the Arcadia Theater should be."
+     },
+     {
+      "scene_number": "12",
+      "slugline": "EXT. NORTH KEDZIE AVENUE - CONTINUOUS",
+      "strip_color": "yellow",
+      "eighths": 1,
+      "location": "NORTH KEDZIE AVENUE",
+      "cast_ids": [
+       "1"
+      ],
+      "synopsis": "Marisol runs into traffic after escaping the alley, narrowly avoiding a collision with a delivery truck."
+     }
+    ],
+    "cast_calls": [
+     {
+      "who": "MARISOL (1)",
+      "time": "07:30",
+      "note": null
+     },
+     {
+      "who": "HOLLOWAY (3)",
+      "time": "12:30",
+      "note": null
+     }
+    ],
+    "department_calls": [
+     {
+      "who": "Art Department",
+      "time": "06:30",
+      "note": "For Scenes 8 & 9 set dressing and projector setup"
+     },
+     {
+      "who": "Visual Effects",
+      "time": "07:00",
+      "note": "VFX Supervisor for Scene 9 projected film setup"
+     },
+     {
+      "who": "Stunt Coordinator",
+      "time": "07:00",
+      "note": "For Scene 12 stunt planning and safety meeting"
+     },
+     {
+      "who": "Transportation / Traffic Control",
+      "time": "07:00",
+      "note": "For Scene 12 road closure and vehicle coordination"
+     }
+    ],
+    "safety_notes": [
+     "Visual Effects Supervisor to conduct safety meeting for use of projection equipment and effects for Scene 9.",
+     "Stunt Coordinator and 1st AD to conduct safety meeting for Scene 12 (Marisol stunt action, physical interaction, and near-miss with vehicle).",
+     "Traffic Control Supervisor and 1st AD to conduct safety meeting for vehicle coordination and public road safety for Scene 12.",
+     "Due to the number of company moves and complex setups, all crew are advised to maintain vigilance regarding safety protocols and schedule adherence."
+    ],
+    "weather_note": "Forecast: Potential for unexpected weather shifts; no cover set available for exterior scenes 6 and 12.",
+    "nearest_hospital": null
+   },
+   {
+    "day_number": 2,
+    "shoot_date": null,
+    "general_call": "16:00",
+    "location": "ARCADIA THEATER",
+    "scenes": [
+     {
+      "scene_number": "1",
+      "slugline": "INT. ARCADIA THEATER - PROJECTION BOOTH - NIGHT",
+      "strip_color": "blue",
+      "eighths": 3,
+      "location": "ARCADIA THEATER - PROJECTION BOOTH",
+      "cast_ids": [
+       "1"
+      ],
+      "synopsis": "Marisol threads film in the projection booth and ignores her buzzing phone."
+     },
+     {
+      "scene_number": "2",
+      "slugline": "EXT. ARCADIA THEATER - MARQUEE - NIGHT",
+      "strip_color": "green",
+      "eighths": 1,
+      "location": "ARCADIA THEATER - MARQUEE",
+      "cast_ids": [],
+      "synopsis": "A black sedan idles outside the Arcadia Theater under the burning marquee."
+     },
+     {
+      "scene_number": "3",
+      "slugline": "INT. ARCADIA THEATER - LOBBY - NIGHT",
+      "strip_color": "blue",
+      "eighths": 4,
+      "location": "ARCADIA THEATER - LOBBY",
+      "cast_ids": [
+       "4",
+       "1"
+      ],
+      "synopsis": "Teddy informs Marisol that the Arcadia Theater's paper has been sold to a development outfit."
+     },
+     {
+      "scene_number": "4",
+      "slugline": "EXT. ARCADIA THEATER - SIDEWALK - NIGHT",
+      "strip_color": "green",
+      "eighths": 1,
+      "location": "ARCADIA THEATER - SIDEWALK",
+      "cast_ids": [
+       "1"
+      ],
+      "synopsis": "Marisol exits the theater, observes the sedan pulling away, and notes its license plate."
+     },
+     {
+      "scene_number": "10",
+      "slugline": "INT. ARCADIA THEATER - LOBBY - NIGHT",
+      "strip_color": "blue",
+      "eighths": 2,
+      "location": "ARCADIA THEATER - LOBBY",
+      "cast_ids": [
+       "1"
+      ],
+      "synopsis": "Marisol makes a call about \"1974\" from a payphone and then sees the black sedan outside again."
+     },
+     {
+      "scene_number": "11",
+      "slugline": "EXT. ARCADIA THEATER - ALLEY - NIGHT",
+      "strip_color": "green",
+      "eighths": 2,
+      "location": "ARCADIA THEATER - ALLEY",
+      "cast_ids": [
+       "1"
+      ],
+      "synopsis": "Marisol is attacked by two men in the alley, drops the film can, and escapes over a fence."
+     },
+     {
+      "scene_number": "14",
+      "slugline": "EXT. ARCADIA THEATER - MARQUEE - NIGHT",
+      "strip_color": "green",
+      "eighths": 2,
+      "location": "ARCADIA THEATER - MARQUEE",
+      "cast_ids": [
+       "2",
+       "1"
+      ],
+      "synopsis": "Ray and Marisol arrive at the now-dark Arcadia Theater to find a city notice taped to the door."
+     }
+    ],
+    "cast_calls": [
+     {
+      "who": "MARISOL (1)",
+      "time": "16:30",
+      "note": null
+     },
+     {
+      "who": "TEDDY (4)",
+      "time": "17:30",
+      "note": null
+     },
+     {
+      "who": "RAY (2)",
+      "time": "20:00",
+      "note": null
+     }
+    ],
+    "department_calls": [
+     {
+      "who": "Special Effects",
+      "time": "13:00",
+      "note": "For extensive rain effects pre-rigging and safety meeting for Scenes 2, 11, 14"
+     },
+     {
+      "who": "Rigging",
+      "time": "13:00",
+      "note": "For extensive night exterior setups and rain effect support"
+     },
+     {
+      "who": "Transportation",
+      "time": "14:00",
+      "note": "For vehicle prep and coordination for Scenes 2, 4, 10, 14"
+     },
+     {
+      "who": "Stunt Coordinator",
+      "time": "15:00",
+      "note": "For stunt choreography, safety meeting, and rigging for Scene 11"
+     }
+    ],
+    "safety_notes": [
+     "Special Effects Supervisor and 1st AD to conduct safety meeting for rain effects and wet set protocols for Scenes 2, 11, 14.",
+     "Stunt Coordinator and 1st AD to conduct safety meeting for Scene 11 (Marisol stunt action, physical interaction with two men, vaulting fence).",
+     "Transportation Coordinator and 1st AD to conduct safety meeting for vehicle movement and coordination for Scenes 2, 4, 10, 14.",
+     "Due to the extreme complexity and extensive elements on this 'Heavy night shoot' (rain effects, vehicles, stunts), multiple safety meetings will be conducted throughout the day, led by the 1st AD and relevant department heads. Crew are urged to prioritize safety protocols and report any concerns immediately."
+    ],
+    "weather_note": "Forecast: Expected conditions with planned rain effects. Contingency plans for severe unplanned weather (e.g., high winds) are in place. No cover set listed.",
+    "nearest_hospital": null
+   },
+   {
+    "day_number": 3,
+    "shoot_date": null,
+    "general_call": "18:30",
+    "location": "DUFFY'S TAP",
+    "scenes": [
+     {
+      "scene_number": "5",
+      "slugline": "INT. DUFFY'S TAP - NIGHT",
+      "strip_color": "blue",
+      "eighths": 3,
+      "location": "DUFFY'S TAP",
+      "cast_ids": [
+       "2",
+       "1"
+      ],
+      "synopsis": "Marisol asks Detective Ray Okonkwo to run a license plate for her."
+     },
+     {
+      "scene_number": "13",
+      "slugline": "INT. DUFFY'S TAP - NIGHT",
+      "strip_color": "blue",
+      "eighths": 2,
+      "location": "DUFFY'S TAP",
+      "cast_ids": [
+       "2",
+       "1"
+      ],
+      "synopsis": "Marisol shows Ray a piece of ruined film, and he confirms the car plate belongs to Holloway Partners, prompting them to retrieve the rest of the film."
+     }
+    ],
+    "cast_calls": [
+     {
+      "who": "MARISOL (1)",
+      "time": "17:30",
+      "note": "Earlier call for 'soaked look' makeup and hair continuity from Day 2 night shoot."
+     },
+     {
+      "who": "RAY (2)",
+      "time": "18:00",
+      "note": null
+     }
+    ],
+    "department_calls": [],
+    "safety_notes": [],
+    "weather_note": null,
+    "nearest_hospital": null
+   }
+  ],
+  "trace": [
+   {
+    "stage": "script",
+    "agent": "script_supervisor",
+    "crew_role": "Script Supervisor",
+    "status": "done",
+    "started_at": 1788458930.1200435,
+    "finished_at": 1788458949.0025764,
+    "detail": "14 scenes, 3.5 pages",
+    "model": null,
+    "searches": 0
+   },
+   {
+    "stage": "breakdown",
+    "agent": "breakdown_agent",
+    "crew_role": "1st Assistant Director",
+    "status": "done",
+    "started_at": 1788458949.0025764,
+    "finished_at": 1788459024.1390097,
+    "detail": "72 elements across 14 scenes",
+    "model": null,
+    "searches": 0
+   },
+   {
+    "stage": "clearance_extract",
+    "agent": "clearance_extractor",
+    "crew_role": "Clearance Researcher",
+    "status": "done",
+    "started_at": 1788458949.0025764,
+    "finished_at": 1788459024.1390097,
+    "detail": "20 references to check",
+    "model": null,
+    "searches": 0
+   },
+   {
+    "stage": "locations",
+    "agent": "locations_agent",
+    "crew_role": "Location Manager",
+    "status": "done",
+    "started_at": 1788459024.1390097,
+    "finished_at": 1788459085.938955,
+    "detail": "4 sets researched",
+    "model": null,
+    "searches": 0
+   },
+   {
+    "stage": "clearance_risk",
+    "agent": "risk_scorer",
+    "crew_role": "Clearance Analyst",
+    "status": "done",
+    "started_at": 1788459024.1390097,
+    "finished_at": 1788459085.938955,
+    "detail": "0 red, 17 amber",
+    "model": null,
+    "searches": 0
+   },
+   {
+    "stage": "schedule",
+    "agent": "scheduler_agent",
+    "crew_role": "1st Assistant Director",
+    "status": "done",
+    "started_at": 1788459085.938955,
+    "finished_at": 1788459152.5741637,
+    "detail": "3 shooting days, 2 company moves",
+    "model": null,
+    "searches": 0
+   },
+   {
+    "stage": "compliance",
+    "agent": "compliance_agent",
+    "crew_role": "Unit Production Manager",
+    "status": "done",
+    "started_at": 1788459152.5741637,
+    "finished_at": 1788459187.5122502,
+    "detail": "7 flags, 2 blocking",
+    "model": null,
+    "searches": 0
+   },
+   {
+    "stage": "budget",
+    "agent": "line_producer",
+    "crew_role": "Line Producer",
+    "status": "done",
+    "started_at": 1788459187.5122502,
+    "finished_at": 1788459215.79256,
+    "detail": "$163,300 including contingency",
+    "model": null,
+    "searches": 0
+   },
+   {
+    "stage": "call_sheets",
+    "agent": "call_sheet_agent",
+    "crew_role": "2nd Assistant Director",
+    "status": "done",
+    "started_at": 1788459215.79256,
+    "finished_at": 1788459253.0386443,
+    "detail": "3 call sheets",
+    "model": null,
+    "searches": 0
+   }
+  ]
+ }
+}

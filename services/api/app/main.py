@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+from datetime import date
 from pathlib import Path
 from typing import AsyncIterator
 
@@ -21,6 +22,7 @@ from pydantic import BaseModel, Field
 from app.agents.crew import CREW_ROLES
 from app.core.config import get_settings
 from app.core.exports import EXPORTS
+from app.core.pdf import PDF_DOCUMENTS
 from app.core.store import RunStore
 from app.pipeline import PipelineRun
 
@@ -52,14 +54,22 @@ class AnalyseRequest(BaseModel):
     text: str = Field(min_length=40, description="Raw screenplay text")
     filename: str = "untitled.fountain"
     setting: str = Field(default="Chicago, Illinois", description="Where the production intends to shoot")
+    start_date: date | None = Field(
+        default=None,
+        description="First day of principal photography. Defaults to the Monday after next.",
+    )
 
 
 def _sse(payload: dict) -> str:
     return f"data: {json.dumps(payload, ensure_ascii=False)}\n\n"
 
 
-async def _stream(text: str, filename: str, setting: str) -> AsyncIterator[str]:
-    run = PipelineRun(raw_text=text, filename=filename, setting=setting)
+async def _stream(
+    text: str, filename: str, setting: str, start_date: date | None = None
+) -> AsyncIterator[str]:
+    run = PipelineRun(
+        raw_text=text, filename=filename, setting=setting, start_date=start_date
+    )
 
     async for event in run.run():
         # A finished package is persisted before it is streamed, so the client
@@ -145,7 +155,7 @@ async def sample() -> dict:
 async def analyse(payload: AnalyseRequest) -> StreamingResponse:
     _require_config()
     return StreamingResponse(
-        _stream(payload.text, payload.filename, payload.setting),
+        _stream(payload.text, payload.filename, payload.setting, payload.start_date),
         media_type="text/event-stream",
         headers=SSE_HEADERS,
     )
@@ -259,6 +269,34 @@ async def export_run(run_id: str, document: str) -> Response:
         content="﻿" + builder(package),
         media_type="text/csv; charset=utf-8",
         headers={"Content-Disposition": f'attachment; filename="{slug}-{document}.csv"'},
+    )
+
+
+@app.get("/api/runs/{run_id}/export/{document}.pdf")
+async def export_run_pdf(run_id: str, document: str) -> Response:
+    """A call sheet or a clearance report, as the document people distribute.
+
+    These two are handed out rather than edited: a call sheet goes to the whole
+    unit the night before, a clearance report goes to the insurer. Everything
+    else exports as CSV because it belongs in a spreadsheet.
+    """
+    builder = PDF_DOCUMENTS.get(document)
+    if builder is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No PDF for that document. Available: {', '.join(sorted(PDF_DOCUMENTS))}.",
+        )
+
+    stored = _load_run_or_demo(run_id)
+    package = stored.get("package") or {}
+
+    title = ((package.get("script") or {}).get("header") or {}).get("title") or "firstad"
+    slug = re.sub(r"[^a-z0-9]+", "-", str(title).lower()).strip("-") or "firstad"
+
+    return Response(
+        content=builder(package),
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{slug}-{document}.pdf"'},
     )
 
 

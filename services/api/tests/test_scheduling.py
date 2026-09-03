@@ -8,12 +8,17 @@ arrangement, because the arrangement is allowed to improve.
 
 from __future__ import annotations
 
+from datetime import date
+
 from app.core.scheduling import (
     MAX_EIGHTHS_PER_DAY,
+    assign_shoot_dates,
+    default_start_date,
     derive_cast,
+    next_working_day,
     optimise_stripboard,
 )
-from app.schemas.production import Interior, StripColor, TimeOfDay
+from app.schemas.production import Interior, ShootDay, StripColor, TimeOfDay
 
 from .conftest import make_breakdown, make_scene, make_script
 
@@ -192,3 +197,63 @@ def test_cast_names_are_normalised_and_deduplicated() -> None:
 
 def test_cast_is_empty_when_no_characters_are_tagged() -> None:
     assert derive_cast(make_script([make_scene("1", "SET A")])) == []
+
+
+# -- shooting dates ---------------------------------------------------------
+
+
+def test_dates_skip_weekends() -> None:
+    """A five-day week is the default, so Saturday and Sunday are not shot."""
+    days = [
+        ShootDay(day_number=i + 1, location="SET A", scenes=[], total_eighths=10)
+        for i in range(7)
+    ]
+    assign_shoot_dates(days, date(2026, 9, 11))  # a Friday
+
+    assert [d.shoot_date for d in days] == [
+        date(2026, 9, 11),  # Fri
+        date(2026, 9, 14),  # Mon, weekend skipped
+        date(2026, 9, 15),
+        date(2026, 9, 16),
+        date(2026, 9, 17),
+        date(2026, 9, 18),  # Fri
+        date(2026, 9, 21),  # Mon
+    ]
+    assert all(d.shoot_date.weekday() < 5 for d in days)
+
+
+def test_a_weekend_start_moves_to_monday() -> None:
+    """Asking to start on a Saturday should not silently shoot on one."""
+    days = [ShootDay(day_number=1, location="SET A", scenes=[], total_eighths=10)]
+    assign_shoot_dates(days, date(2026, 9, 12))  # a Saturday
+
+    assert days[0].shoot_date == date(2026, 9, 14)
+
+
+def test_dates_are_strictly_increasing() -> None:
+    days = [
+        ShootDay(day_number=i + 1, location="SET A", scenes=[], total_eighths=10)
+        for i in range(20)
+    ]
+    assign_shoot_dates(days, date(2026, 9, 14))
+
+    dates = [d.shoot_date for d in days]
+    assert dates == sorted(dates)
+    assert len(set(dates)) == len(dates)
+
+
+def test_assigning_dates_to_an_empty_board_is_safe() -> None:
+    assign_shoot_dates([], date(2026, 9, 14))
+
+
+def test_default_start_is_a_monday_with_lead_time() -> None:
+    """Permits need lead time, so the default is not tomorrow."""
+    start = default_start_date(date(2026, 9, 3))  # a Thursday
+
+    assert start.weekday() == 0
+    assert (start - date(2026, 9, 3)).days >= 7
+
+
+def test_next_working_day_rolls_over_the_weekend() -> None:
+    assert next_working_day(date(2026, 9, 11)) == date(2026, 9, 14)  # Fri -> Mon
+    assert next_working_day(date(2026, 9, 14)) == date(2026, 9, 15)  # Mon -> Tue

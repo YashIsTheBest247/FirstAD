@@ -1,7 +1,7 @@
 "use client";
 
 import type { ShootDay, StripColor, Stripboard as StripboardData } from "@/lib/types";
-import { Eyebrow, Headline, Panel, SectionHead, Stat, eighths } from "./ui";
+import { Eyebrow, Headline, Panel, SectionHead, Stat, eighths, shootDate } from "./ui";
 
 /**
  * A real stripboard is a rack of coloured cardboard strips, one per scene,
@@ -83,6 +83,11 @@ function DayBlock({ day }: { day: ShootDay }) {
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--line)] bg-[var(--paper)] px-5 py-3.5">
         <div className="flex flex-wrap items-baseline gap-3">
           <span className="display text-[21px] tracking-[-0.015em]">Day {day.day_number}</span>
+          {day.shoot_date ? (
+            <span className="font-mono text-[11px] text-[var(--text-3)]">
+              {shootDate(day.shoot_date)}
+            </span>
+          ) : null}
           <span className="text-[13.5px] text-[var(--text-2)]">{day.location}</span>
           {day.company_move ? (
             <span className="rounded-full border border-[#f2dcae] bg-[#fdf4e3] px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.12em] text-[#9a5f08]">

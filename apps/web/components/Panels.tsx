@@ -10,7 +10,7 @@ import type {
   ComplianceSeverity,
   LocationsIntel,
 } from "@/lib/types";
-import { Empty, Eyebrow, Panel, SectionHead, Stat, Tag, money } from "./ui";
+import { Empty, Eyebrow, Panel, SectionHead, Stat, Tag, money, shootDate } from "./ui";
 
 /* -------------------------------------------------------------------------
    Locations
@@ -337,6 +337,11 @@ export function CallSheetsPanel({ sheets }: { sheets: CallSheet[] }) {
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[var(--line)] bg-[var(--paper)] px-6 py-4">
           <div>
             <div className="display text-[24px] tracking-[-0.02em]">Day {sheet.day_number}</div>
+            {sheet.shoot_date ? (
+              <div className="mt-0.5 font-mono text-[12px] text-[var(--text-2)]">
+                {shootDate(sheet.shoot_date)}
+              </div>
+            ) : null}
             <div className="mt-1 text-[13.5px] text-[var(--text-2)]">{sheet.location}</div>
           </div>
           <div className="sm:text-right">

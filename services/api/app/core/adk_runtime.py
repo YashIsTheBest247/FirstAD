@@ -93,6 +93,23 @@ _TRANSIENT_MARKERS = (
 )
 
 
+# Gemini returns how long to wait in the error body, e.g. "retryDelay": "42s".
+# Guessing a backoff when the server has told you the answer is how a run
+# exhausts its attempts in 28 seconds against a 42 second quota window.
+_RETRY_DELAY_RE = re.compile(r"retrydelay['\"]?\s*:\s*['\"]?(\d+(?:\.\d+)?)s", re.IGNORECASE)
+
+
+def server_retry_delay(exc: BaseException) -> float | None:
+    """The wait the API asked for, in seconds, if it named one."""
+    match = _RETRY_DELAY_RE.search(str(exc))
+    if not match:
+        return None
+    try:
+        return float(match.group(1))
+    except ValueError:
+        return None
+
+
 def _is_transient(exc: BaseException) -> bool:
     blob = f"{type(exc).__name__} {exc}".lower()
     return any(marker in blob for marker in _TRANSIENT_MARKERS)
@@ -159,16 +176,22 @@ async def run_agent(
                         final_text = "".join(p.text or "" for p in event.content.parts)
         except Exception as exc:  # noqa: BLE001 - retried or re-raised below
             if _is_transient(exc) and attempt < attempts:
+                # Prefer the server's own instruction over our guess, with a
+                # small margin so we do not land on the boundary of the window.
+                asked = server_retry_delay(exc)
+                wait = max(backoff, asked + 3.0) if asked is not None else backoff
+
                 log.warning(
-                    "%s hit a transient failure (%s), waiting %.0fs before retry %s/%s: %s",
+                    "%s hit a transient failure (%s), waiting %.0fs before retry %s/%s%s: %s",
                     agent.name,
                     type(exc).__name__,
-                    backoff,
+                    wait,
                     attempt + 1,
                     attempts,
-                    str(exc)[:160],
+                    " (server asked for %.0fs)" % asked if asked is not None else "",
+                    str(exc)[:140],
                 )
-                await asyncio.sleep(backoff)
+                await asyncio.sleep(wait)
                 backoff *= 2
                 # Not a schema failure, so the prompt is left untouched.
                 continue

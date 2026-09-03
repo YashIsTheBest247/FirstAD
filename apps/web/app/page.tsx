@@ -132,7 +132,12 @@ export default function Home() {
   }, [openRun, refreshRuns]);
 
   const run = useCallback(
-    async (input: { text: string; filename: string; setting: string }) => {
+    async (input: {
+      text: string;
+      filename: string;
+      setting: string;
+      start_date?: string;
+    }) => {
       abortRef.current?.abort();
       const controller = new AbortController();
       abortRef.current = controller;
