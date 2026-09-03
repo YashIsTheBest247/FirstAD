@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Node
+node_modules/
+.next/
+out/
+dist/
+.turbo/
+
+# Env
+.env
+.env.local
+.env*.local
+*.key
+service-account*.json
+
+# Runtime artefacts
+services/api/.runs/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,16 @@
+fastapi==0.118.0
+uvicorn[standard]==0.37.0
+pydantic==2.11.9
+pydantic-settings==2.11.0
+python-multipart==0.0.20
+httpx==0.28.1
+
+# Google Cloud AI - the only permitted AI tooling for this hackathon
+google-genai==1.41.0
+google-adk==1.16.0
+
+# Partner track: Parallel Search API
+parallel-web==1.3.3
+
+# Screenplay ingestion
+pypdf==6.1.1

@@ -1,0 +1,331 @@
+@import "tailwindcss";
+
+/* --------------------------------------------------------------------------
+   Greenlight design system
+
+   Editorial, high-key, print-adjacent. Three grounds only: paper, ink, and one
+   saturated blue used for the hero. Acid lime is the single accent and it is
+   never decorative, it always marks the thing you are meant to act on.
+
+   The typographic signature is a heavy grotesk in caps interrupted by a
+   high-contrast serif italic. The sans carries the noun, the italic carries
+   the craft word.
+
+   The stripboard palette is not a design choice. Production strips are
+   physical cardboard in white, yellow, blue and green, and on a paper ground
+   they can finally be the real colours instead of dark-mode approximations.
+   -------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+
+  /* Grounds */
+  --paper: #f4f4ef;
+  --paper-2: #ebebe4;
+  --white: #ffffff;
+  --ink: #0e100f;
+  --ink-2: #191c1a;
+  --ink-3: #2a2e2b;
+
+  /* Text */
+  --text: #14171a;
+  --text-2: #55605c;
+  --text-3: #8a938f;
+  --on-ink: #f2f3ef;
+  --on-ink-2: #a6ada8;
+
+  /* Accent */
+  --lime: #c8f24e;
+  --lime-deep: #a9d629;
+  --lime-wash: #eefabf;
+
+  /* Hero */
+  --blue: #1a6ae8;
+  --blue-deep: #0b47ad;
+
+  /* Lines */
+  --line: #dcdcd3;
+  --line-ink: #2e332f;
+
+  /* Stripboard, the actual production colours */
+  --strip-white: #ffffff;
+  --strip-yellow: #fbe58f;
+  --strip-blue: #aecbf5;
+  --strip-green: #a9dcb6;
+  --strip-edge: #c9cabf;
+
+  /* Risk */
+  --risk-red: #d93a3a;
+  --risk-amber: #dd8b16;
+  --risk-green: #2c9e57;
+
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 26px;
+  --r-xl: 34px;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-text: var(--text);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --color-on-ink: var(--on-ink);
+  --color-on-ink-2: var(--on-ink-2);
+  --color-lime: var(--lime);
+  --color-lime-deep: var(--lime-deep);
+  --color-blue: var(--blue);
+  --color-line: var(--line);
+  --color-risk-red: var(--risk-red);
+  --color-risk-amber: var(--risk-amber);
+  --color-risk-green: var(--risk-green);
+
+  --font-display: var(--font-grotesk), "Helvetica Neue", Arial, sans-serif;
+  --font-script: var(--font-serif), Georgia, serif;
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-data), ui-monospace, monospace;
+}
+
+html,
+body {
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --------------------------------------------------------------------------
+   Type
+   -------------------------------------------------------------------------- */
+
+/* The headline face: heavy grotesk, caps, tracked tight so the words lock up
+   into a block the way they do on a poster. */
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  line-height: 0.92;
+}
+
+/* The interruption: high-contrast serif italic, set in sentence case and
+   optically larger, because a serif italic reads small next to a heavy sans. */
+.script {
+  font-family: var(--font-script);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  font-size: 1.12em;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.eyebrow-on-ink {
+  color: var(--on-ink-2);
+}
+
+/* --------------------------------------------------------------------------
+   Surfaces
+   -------------------------------------------------------------------------- */
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+
+.card-lg {
+  background: var(--white);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--line);
+}
+
+.card-ink {
+  background: var(--ink-2);
+  border: 1px solid var(--line-ink);
+  border-radius: var(--r-md);
+  color: var(--on-ink);
+}
+
+.slab-ink {
+  background: var(--ink);
+  color: var(--on-ink);
+  border-radius: var(--r-xl);
+}
+
+.hero-blue {
+  background:
+    radial-gradient(120% 90% at 78% 12%, rgba(255, 255, 255, 0.22), transparent 55%),
+    linear-gradient(158deg, #2f83f5 0%, var(--blue) 46%, var(--blue-deep) 100%);
+}
+
+/* --------------------------------------------------------------------------
+   Controls
+   -------------------------------------------------------------------------- */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.7rem 1.4rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.pill:active {
+  transform: translateY(1px);
+}
+
+.pill-lime {
+  background: var(--lime);
+  color: var(--ink);
+  border: 1px solid var(--lime);
+}
+.pill-lime:hover:not(:disabled) {
+  background: var(--lime-deep);
+  border-color: var(--lime-deep);
+}
+.pill-lime:disabled {
+  background: var(--paper-2);
+  border-color: var(--line);
+  color: var(--text-3);
+  cursor: not-allowed;
+}
+
+.pill-ink {
+  background: var(--ink);
+  color: var(--on-ink);
+  border: 1px solid var(--ink);
+}
+.pill-ink:hover:not(:disabled) {
+  background: var(--ink-3);
+}
+
+.pill-ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+.pill-ghost:hover:not(:disabled) {
+  border-color: var(--ink);
+}
+
+.pill-on-ink {
+  background: transparent;
+  color: var(--on-ink);
+  border: 1px solid var(--line-ink);
+}
+.pill-on-ink:hover:not(:disabled) {
+  border-color: var(--lime);
+  color: var(--lime);
+}
+
+/* A small circular action, like the play and arrow buttons in the reference. */
+.dot-btn {
+  display: inline-flex;
+  height: 34px;
+  width: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+/* --------------------------------------------------------------------------
+   Motion
+   -------------------------------------------------------------------------- */
+
+@keyframes sweep {
+  0% { transform: translateX(-110%); }
+  100% { transform: translateX(340%); }
+}
+
+.sweeping::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, rgba(200, 242, 78, 0.5), transparent);
+  animation: sweep 1.8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.4; transform: scale(0.82); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.breathe {
+  animation: breathe 1.25s ease-in-out infinite;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.rise {
+  animation: rise 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sweeping::after,
+  .breathe,
+  .rise {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Misc
+   -------------------------------------------------------------------------- */
+
+::selection {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--paper-2);
+}
+::-webkit-scrollbar-thumb {
+  background: #c5c6bb;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #adaea3;
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}

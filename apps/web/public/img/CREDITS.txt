@@ -1,0 +1,13 @@
+Photography in this directory is from Unsplash and used under the Unsplash
+License, which permits commercial use without attribution. Attribution is
+given anyway.
+
+  hero-clapper.jpg   unsplash.com/photos/a62644f84728
+  reels.jpg          unsplash.com/photos/65bf26472b9b
+  cinema-neon.jpg    unsplash.com/photos/849c177e76a1
+  audience.jpg       unsplash.com/photos/7e0c8ed2963c
+  screen-dark.jpg    unsplash.com/photos/9b910be24d5f
+  seats-red.jpg      unsplash.com/photos/4b4628081c31
+
+No copyrighted film artwork, posters, logos, or trademarks are used anywhere in
+this project. All screenplay material in samples/ is original.
