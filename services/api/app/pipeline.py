@@ -28,11 +28,13 @@ from app.agents.crew import (
     build_crew,
 )
 from app.core.adk_runtime import AgentExecutionError, run_agent
+from app.core.clearance_rules import is_fiction_phone, pick_canonical, same_reference
 from app.core.config import get_settings
 from app.core.scheduling import derive_cast, optimise_stripboard
 from app.core.screenplay import detect_format, parse_screenplay
 from app.schemas.production import (
     Breakdown,
+    ClearanceCategory,
     BudgetTopSheet,
     CastMember,
     ClearanceReport,
@@ -40,6 +42,7 @@ from app.schemas.production import (
     LocationsIntel,
     ParsedScript,
     ProductionPackage,
+    RiskLevel,
     ScriptHeader,
     StageStatus,
     StageTrace,
@@ -93,6 +96,8 @@ class PipelineRun:
         self.crew = build_crew()
         self.research = ParallelResearch()
         self.trace: list[StageTrace] = []
+        # Stages that fell back rather than failing the whole run.
+        self.degraded: list[str] = []
         self._settings = get_settings()
 
     # -- tracing ---------------------------------------------------------
@@ -223,24 +228,40 @@ class PipelineRun:
 
         results = await asyncio.gather(*(run_batch(b) for b in batches), return_exceptions=True)
 
-        # Merge on the literal text so the same name across batches is one entity.
-        merged: dict[str, Any] = {}
+        # Merge references that denote the same thing, not merely identical
+        # strings. A script names a character in full once and by first name
+        # thereafter, and each spelling arrives as its own entity. Left
+        # separate they spend the live-search budget twice on one person and
+        # push real references past the cap.
+        merged: list[Any] = []
         for result in results:
             if isinstance(result, BaseException):
                 log.warning("clearance extraction batch failed: %s", result)
                 continue
+
             for entity in result.entities:
-                key = entity.text.strip().lower()
-                if key in merged:
-                    existing = merged[key]
-                    existing.scene_numbers = sorted(set(existing.scene_numbers) | set(entity.scene_numbers))
+                for existing in merged:
+                    if existing.category is not entity.category:
+                        continue
+                    if not same_reference(existing.text, entity.text, entity.category.value):
+                        continue
+
+                    existing.text = pick_canonical(existing.text, entity.text)
+                    existing.scene_numbers = sorted(
+                        set(existing.scene_numbers) | set(entity.scene_numbers)
+                    )
                     existing.page_refs = sorted(set(existing.page_refs) | set(entity.page_refs))
+                    # A reference is only as safe as its worst depiction.
                     existing.is_negative_portrayal = (
                         existing.is_negative_portrayal or entity.is_negative_portrayal
                     )
+                    if entity.is_negative_portrayal and not existing.is_negative_portrayal:
+                        existing.portrayal = entity.portrayal
+                    break
                 else:
-                    merged[key] = entity
-        return ClearanceEntitySet(entities=list(merged.values()))
+                    merged.append(entity)
+
+        return ClearanceEntitySet(entities=merged)
 
     async def _stage_locations(self, script: ParsedScript) -> tuple[LocationsIntel, int]:
         distinct: dict[str, bool] = {}
@@ -349,6 +370,27 @@ class PipelineRun:
             self.crew["risk_scorer"], prompt, ClearanceFindingSet, run_id=self.run_id
         )
 
+        # A number inside the 555-0100 to 555-0199 block is cleared by rule,
+        # not by judgement, so the verdict is asserted here rather than left to
+        # the model. Screenplays spell numbers out in dialogue, which reads
+        # past a prompt instruction, and getting this wrong flags the one
+        # reference a writer already did correctly.
+        by_id = {e.id: e for e in entities.entities}
+        for finding in graded.findings:
+            entity = by_id.get(finding.entity_id)
+            if entity is None or entity.category is not ClearanceCategory.PHONE_NUMBER:
+                continue
+            if not is_fiction_phone(entity.text):
+                continue
+            finding.risk = RiskLevel.GREEN
+            finding.rationale = (
+                "Inside the 555-0100 to 555-0199 block, which the North American Numbering "
+                "Plan reserves for fictional use. Cleared by rule, so no search was needed."
+            )
+            finding.real_world_matches = []
+            finding.suggested_alternatives = []
+            finding.searched = False
+
         # Anything past the research cap is reported honestly as unreviewed
         # rather than silently dropped.
         graded_ids = {f.entity_id for f in graded.findings}
@@ -387,9 +429,43 @@ class PipelineRun:
             f"{json.dumps(locations.model_dump(mode='json'), ensure_ascii=False)}"
         )
 
-        board = await run_agent(self.crew["scheduler_agent"], prompt, Stripboard, run_id=self.run_id)
+        try:
+            board = await run_agent(
+                self.crew["scheduler_agent"], prompt, Stripboard, run_id=self.run_id
+            )
+        except AgentExecutionError as exc:
+            # The optimiser already produced a valid board; the agent only adds
+            # a 1st AD's judgement on top. Losing that judgement is a real
+            # downgrade, but it is not a reason to throw away a run that has
+            # already cost minutes of work and every other stage.
+            log.warning("scheduler agent failed, falling back to the optimiser board: %s", exc)
+            self.degraded.append(f"Scheduler: {exc}")
+            board = Stripboard(
+                days=candidate,
+                cast=cast,
+                company_moves=sum(1 for d in candidate if d.company_move),
+                shoot_day_count=len(candidate),
+                rationale=(
+                    "Produced by the deterministic optimiser alone. The Scheduler agent was "
+                    "unavailable, so this board groups scenes by set and lighting state to "
+                    "minimise company moves, but it has not been reviewed for stranded cast, "
+                    "day weight, or permit lead times."
+                ),
+            )
+
         board.shoot_day_count = len(board.days)
         board.company_moves = sum(1 for d in board.days if d.company_move)
+
+        # Cast work days are derivable from the board, and the agent frequently
+        # leaves them empty, which silently breaks the day-out-of-days grid.
+        for day in board.days:
+            numbers = {s.scene_number for s in day.scenes}
+            for member in board.cast:
+                if numbers & set(member.scene_numbers) and day.day_number not in member.work_days:
+                    member.work_days.append(day.day_number)
+        for member in board.cast:
+            member.work_days.sort()
+
         return board
 
     async def _stage_compliance(self, board: Stripboard, breakdown: Breakdown) -> ComplianceReport:
@@ -506,21 +582,45 @@ class PipelineRun:
             # Stage 5
             e_comp = self._begin("compliance", "compliance_agent", "Checking turnaround, minors, and safety")
             yield self._event(e_comp)
-            compliance = await self._stage_compliance(board, breakdown)
-            blockers = sum(1 for f in compliance.flags if f.severity.value == "blocker")
-            yield self._event(self._finish(e_comp, f"{len(compliance.flags)} flags, {blockers} blocking"))
+            try:
+                compliance = await self._stage_compliance(board, breakdown)
+                blockers = sum(1 for f in compliance.flags if f.severity.value == "blocker")
+                detail = f"{len(compliance.flags)} flags, {blockers} blocking"
+            except AgentExecutionError as exc:
+                log.warning("compliance stage failed: %s", exc)
+                self.degraded.append(f"Compliance: {exc}")
+                compliance = ComplianceReport(flags=[])
+                detail = "unavailable, schedule not checked against the rules"
+            yield self._event(self._finish(e_comp, detail))
 
             # Stage 6
             e_bud = self._begin("budget", "line_producer", "Building the top sheet")
             yield self._event(e_bud)
-            budget = await self._stage_budget(script, board, breakdown, locations, clearance)
-            yield self._event(self._finish(e_bud, f"${budget.total:,.0f} including contingency"))
+            try:
+                budget = await self._stage_budget(script, board, breakdown, locations, clearance)
+                detail = f"${budget.total:,.0f} including contingency"
+            except AgentExecutionError as exc:
+                log.warning("budget stage failed: %s", exc)
+                self.degraded.append(f"Line Producer: {exc}")
+                budget = BudgetTopSheet(
+                    above_the_line=[], below_the_line=[], post_and_other=[],
+                    assumptions=["The Line Producer was unavailable, so no budget was produced."],
+                )
+                detail = "unavailable, no top sheet produced"
+            yield self._event(self._finish(e_bud, detail))
 
             # Stage 7
             e_call = self._begin("call_sheets", "call_sheet_agent", "Cutting call sheets")
             yield self._event(e_call)
-            call_sheets = await self._stage_call_sheets(board, breakdown, compliance, locations)
-            yield self._event(self._finish(e_call, f"{len(call_sheets.call_sheets)} call sheets"))
+            try:
+                call_sheets = await self._stage_call_sheets(board, breakdown, compliance, locations)
+                detail = f"{len(call_sheets.call_sheets)} call sheets"
+            except AgentExecutionError as exc:
+                log.warning("call sheet stage failed: %s", exc)
+                self.degraded.append(f"2nd AD: {exc}")
+                call_sheets = CallSheetSet(call_sheets=[])
+                detail = "unavailable, no call sheets cut"
+            yield self._event(self._finish(e_call, detail))
 
             package = ProductionPackage(
                 run_id=self.run_id,
@@ -539,6 +639,7 @@ class PipelineRun:
                 "type": "complete",
                 "run_id": self.run_id,
                 "searches_run": self.research.call_count,
+                "degraded": self.degraded,
                 "package": package.model_dump(mode="json"),
             }
 

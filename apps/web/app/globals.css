@@ -90,6 +90,25 @@
   --font-mono: var(--font-data), ui-monospace, monospace;
 }
 
+/* --------------------------------------------------------------------------
+   Scrolling
+
+   Anchor jumps are smoothed, and every anchor target is offset by the height
+   of the fixed bar so the heading you jumped to is not sitting underneath it.
+   -------------------------------------------------------------------------- */
+
+html {
+  scroll-behavior: smooth;
+}
+
+#top,
+#crew,
+#how,
+#results,
+#submit {
+  scroll-margin-top: 88px;
+}
+
 html,
 body {
   background: var(--paper);
@@ -356,6 +375,10 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .sweeping::after,
   .breathe,
   .rise,

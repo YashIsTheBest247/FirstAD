@@ -1,7 +1,6 @@
 "use client";
 
 import type { HealthStatus } from "@/lib/api";
-import { Wordmark } from "./Logo";
 
 /**
  * The hero follows the reference layout: navigation inside the coloured block,
@@ -35,9 +34,7 @@ export function Hero({ health }: { health: HealthStatus | null }) {
         <Perforations side="left" />
         <Perforations side="right" />
 
-        <Nav />
-
-        <div className="relative px-6 pt-10 pb-8 sm:px-14 sm:pt-14">
+        <div className="relative px-6 pt-24 pb-8 sm:px-14 sm:pt-28">
           <h1 className="max-w-5xl">
             <span className="block text-[clamp(2.7rem,8.4vw,6.4rem)] leading-[0.94]">
               <span className="display text-[var(--lime)]">Where </span>
@@ -81,40 +78,6 @@ export function Hero({ health }: { health: HealthStatus | null }) {
         </div>
       </div>
     </section>
-  );
-}
-
-function Nav() {
-  return (
-    <nav className="relative flex items-center justify-between px-6 pt-6 sm:px-14">
-      <a href="#top" className="flex items-center gap-2.5">
-        <Wordmark size={28} tone="lime" />
-      </a>
-
-      <div className="hidden items-center gap-8 md:flex">
-        {[
-          ["The crew", "#crew"],
-          ["How it works", "#how"],
-          ["The package", "#results"],
-          ["Sample", "#submit"],
-        ].map(([label, href]) => (
-          <a
-            key={href}
-            href={href}
-            className="text-[13.5px] text-white/85 transition hover:text-white"
-          >
-            {label}
-          </a>
-        ))}
-      </div>
-
-      <a
-        href="#submit"
-        className="pill border border-white/35 bg-white/12 text-white backdrop-blur-sm hover:bg-white/20"
-      >
-        Run a script
-      </a>
-    </nav>
   );
 }
 

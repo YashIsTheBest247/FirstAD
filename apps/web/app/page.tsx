@@ -16,6 +16,7 @@ import type { CrewMember, ProductionPackage, StageTrace } from "@/lib/types";
 import { ClearancePanel } from "@/components/ClearancePanel";
 import { CrewBoard } from "@/components/CrewBoard";
 import { Hero } from "@/components/Hero";
+import { Nav } from "@/components/Nav";
 import { Deliverables, Footer, StatsBento, TheProblem } from "@/components/Marketing";
 import {
   BreakdownPanel,
@@ -120,9 +121,14 @@ export default function Home() {
       .catch(() => setError("Could not reach the First AD API. Is the backend running?"));
     refreshRuns();
 
-    // A permalink opens straight into that package.
+    // A permalink opens straight into that package. Deferred out of the effect
+    // body because openRun clears the error state synchronously, and a setState
+    // during mount cascades an extra render before the first paint.
     const requested = new URLSearchParams(window.location.search).get("run");
-    if (requested) void openRun(requested);
+    if (!requested) return;
+
+    const timer = window.setTimeout(() => void openRun(requested), 0);
+    return () => window.clearTimeout(timer);
   }, [openRun, refreshRuns]);
 
   const run = useCallback(
@@ -172,6 +178,7 @@ export default function Home() {
 
   return (
     <main>
+      <Nav />
       <Hero health={health} />
       <TheProblem />
       <StatsBento />

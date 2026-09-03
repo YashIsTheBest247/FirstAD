@@ -60,19 +60,42 @@ def _extract_json(text: str) -> str:
     return stripped
 
 
-_RATE_LIMIT_MARKERS = (
+# Failures that are worth trying again unchanged. Two distinct families:
+#
+#   Rate limits    - we asked for too much, so wait and ask again.
+#   Server faults  - Gemini is briefly out of capacity. A 503 saying "high
+#                    demand" is the single most common failure on a long run,
+#                    and it clears in seconds.
+#
+# Both are transient, so both back off and retry. Anything else is a real
+# error and is raised immediately rather than burning three more attempts.
+_TRANSIENT_MARKERS = (
+    # Rate limiting
     "429",
     "resource_exhausted",
     "resourceexhausted",
     "quota",
     "rate limit",
     "too many requests",
+    # Transient server faults
+    "500",
+    "502",
+    "503",
+    "504",
+    "unavailable",
+    "internal error",
+    "high demand",
+    "overloaded",
+    "deadline_exceeded",
+    "deadline exceeded",
+    "timeout",
+    "connection reset",
 )
 
 
-def _is_rate_limited(exc: BaseException) -> bool:
+def _is_transient(exc: BaseException) -> bool:
     blob = f"{type(exc).__name__} {exc}".lower()
-    return any(marker in blob for marker in _RATE_LIMIT_MARKERS)
+    return any(marker in blob for marker in _TRANSIENT_MARKERS)
 
 
 @lru_cache
@@ -135,13 +158,15 @@ async def run_agent(
                     if event.is_final_response() and event.content and event.content.parts:
                         final_text = "".join(p.text or "" for p in event.content.parts)
         except Exception as exc:  # noqa: BLE001 - retried or re-raised below
-            if _is_rate_limited(exc) and attempt < attempts:
+            if _is_transient(exc) and attempt < attempts:
                 log.warning(
-                    "%s hit a rate limit, waiting %.0fs before retry %s/%s",
+                    "%s hit a transient failure (%s), waiting %.0fs before retry %s/%s: %s",
                     agent.name,
+                    type(exc).__name__,
                     backoff,
                     attempt + 1,
                     attempts,
+                    str(exc)[:160],
                 )
                 await asyncio.sleep(backoff)
                 backoff *= 2
