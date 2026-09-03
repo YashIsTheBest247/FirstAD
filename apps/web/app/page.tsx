@@ -232,7 +232,7 @@ export default function Home() {
                     key={t.id}
                     type="button"
                     onClick={() => setTab(t.id)}
-                    className={`rounded-full px-3.5 py-1.5 font-[family-name:var(--font-grotesk)] text-[12px] font-bold uppercase tracking-[0.09em] transition ${
+                    className={`press rounded-full px-3.5 py-1.5 font-[family-name:var(--font-grotesk)] text-[12px] font-bold uppercase tracking-[0.09em] ${
                       tab === t.id
                         ? "bg-[var(--ink)] text-[var(--on-ink)]"
                         : "text-[var(--text-2)] hover:bg-[var(--paper-2)]"
@@ -247,6 +247,10 @@ export default function Home() {
                 <ExportBar runId={pkg.run_id} recorded={recordedAt !== null} />
               </div>
 
+              {/* Keyed on the tab so the panel remounts and replays its
+                  enter animation, which makes the switch feel like a move
+                  rather than a repaint. */}
+              <div key={tab} className="rise">
               {tab === "stripboard" ? <Stripboard board={pkg.stripboard} /> : null}
               {tab === "clearance" ? <ClearancePanel report={pkg.clearance} /> : null}
               {tab === "script" ? (
@@ -257,6 +261,7 @@ export default function Home() {
               {tab === "budget" ? <BudgetPanel budget={pkg.budget} /> : null}
               {tab === "callsheets" ? <CallSheetsPanel sheets={pkg.call_sheets} /> : null}
               {tab === "breakdown" ? <BreakdownPanel breakdown={pkg.breakdown} /> : null}
+              </div>
             </section>
           ) : null}
         </div>

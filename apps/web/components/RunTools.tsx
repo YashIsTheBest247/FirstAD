@@ -64,7 +64,7 @@ export function ExportBar({ runId, recorded }: { runId: string; recorded: boolea
             key={doc}
             href={csvUrl(runId, doc)}
             download
-            className="rounded-full border border-[var(--line)] px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-2)] transition hover:border-[var(--ink)] hover:text-[var(--text)]"
+            className="press rounded-full border border-[var(--line)] px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-2)] hover:border-[var(--ink)] hover:text-[var(--text)]"
           >
             {DOC_LABELS[doc] ?? doc} · CSV
           </a>
@@ -108,7 +108,7 @@ export function RunHistory({
               key={run.run_id}
               type="button"
               onClick={() => onOpen(run.run_id)}
-              className={`card p-4 text-left transition hover:border-[var(--ink)] ${
+              className={`card lift p-4 text-left hover:border-[var(--ink)] ${
                 active ? "border-[var(--ink)] ring-1 ring-[var(--ink)]" : ""
               }`}
             >

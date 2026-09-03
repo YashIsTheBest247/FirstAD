@@ -107,7 +107,7 @@ export function ScriptViewer({
         <button
           type="button"
           onClick={() => setOnlyFlagged((v) => !v)}
-          className={`rounded-full border px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] transition ${
+          className={`press rounded-full border px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] ${
             onlyFlagged
               ? "border-[var(--ink)] bg-[var(--ink)] text-[var(--on-ink)]"
               : "border-[var(--line)] text-[var(--text-2)] hover:border-[var(--ink)]"
@@ -303,7 +303,7 @@ function highlight(
         type="button"
         onClick={() => onSelect(mark.entityId)}
         title={`${mark.risk.toUpperCase()} · click for the verdict`}
-        className="rounded-[3px] px-0.5 font-mono transition"
+        className="press rounded-[3px] px-0.5 font-mono"
         style={{
           background: style.bg,
           color: style.text,

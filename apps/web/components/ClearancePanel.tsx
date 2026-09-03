@@ -246,7 +246,7 @@ function Chip({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-full border px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.12em] transition ${
+      className={`press rounded-full border px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.12em] ${
         active
           ? (activeClass ?? "border-[var(--ink)] bg-[var(--ink)] text-[var(--on-ink)]")
           : "border-[var(--line)] bg-[var(--white)] text-[var(--text-2)] hover:border-[var(--ink)]"

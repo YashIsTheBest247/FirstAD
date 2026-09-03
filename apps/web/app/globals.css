@@ -193,8 +193,8 @@ body {
     border-color 160ms ease;
 }
 
-.pill:active {
-  transform: translateY(1px);
+.pill:active:not(:disabled) {
+  transform: translateY(1px) scale(0.98);
 }
 
 .pill-lime {
@@ -291,11 +291,87 @@ body {
   animation: rise 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* --------------------------------------------------------------------------
+   Interaction
+
+   Every clickable thing gets the same two responses: it depresses under the
+   pointer and springs back on release. The depress is instant so the click
+   feels acknowledged before anything else happens; the release is eased so it
+   does not snap.
+   -------------------------------------------------------------------------- */
+
+.press {
+  transition:
+    transform 130ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 200ms ease;
+}
+
+.press:active:not(:disabled) {
+  transform: scale(0.965);
+}
+
+/* Cards are bigger, so they move less or the whole layout appears to wobble. */
+.lift {
+  transition:
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 160ms ease,
+    box-shadow 200ms ease;
+}
+
+.lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -18px rgba(14, 16, 15, 0.55);
+}
+
+.lift:active {
+  transform: translateY(0) scale(0.995);
+}
+
+/* A short ring pulse, applied for one animation then removed, so a click that
+   navigates or loads still leaves visible evidence it registered. */
+@keyframes pop {
+  0% { box-shadow: 0 0 0 0 rgba(169, 214, 41, 0.55); }
+  100% { box-shadow: 0 0 0 14px rgba(169, 214, 41, 0); }
+}
+
+.popped {
+  animation: pop 500ms ease-out;
+}
+
+/* Keyboard focus was previously invisible. Ring colour flips on dark
+   surfaces so it stays legible against both grounds. */
+:where(button, a, summary, [role="button"]):focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.pill-ink:focus-visible,
+.pill-on-ink:focus-visible,
+.on-ink:focus-visible {
+  outline-color: var(--lime);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .sweeping::after,
   .breathe,
-  .rise {
+  .rise,
+  .popped {
     animation: none;
+  }
+
+  .press,
+  .lift {
+    transition: none;
+  }
+
+  .press:active:not(:disabled),
+  .lift:hover,
+  .lift:active {
+    transform: none;
   }
 }
 
