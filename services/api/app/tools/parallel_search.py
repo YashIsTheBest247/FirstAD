@@ -8,7 +8,7 @@ Two stages of the pipeline are only possible with live, citable web research:
 Neither can be answered from model weights. A model asked "is there a real
 Chicago alderman named Grant Holloway" will confabulate with total confidence,
 and a clearance report built on that is worse than no report at all. So every
-risk verdict in Greenlight is anchored to a URL a production lawyer can open.
+risk verdict in First AD is anchored to a URL a production lawyer can open.
 
 Search fan-out is bounded by a semaphore and memoised per run, because a
 feature script produces hundreds of clearable entities and each one is a

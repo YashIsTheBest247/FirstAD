@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Eyebrow, Headline, Ordinal } from "./ui";
+import { Headline, Ordinal } from "./ui";
 
 /* -------------------------------------------------------------------------
    The problem, stated once, in the reference's two-tone paragraph treatment:
@@ -249,7 +249,7 @@ export function Footer() {
         <div className="relative px-6 py-16 sm:px-14 sm:py-20">
           <div className="mx-auto max-w-lg text-center">
             <h2 className="text-[clamp(1.9rem,4.4vw,3rem)] text-[var(--on-ink)]">
-              <Headline onInk>Ready to *greenlight* it?</Headline>
+              <Headline onInk>Ready to *roll*?</Headline>
             </h2>
             <p className="mx-auto mt-4 max-w-sm text-[13.5px] leading-relaxed text-[var(--on-ink-2)]">
               Load the sample screenplay and watch nine agents turn it into a shooting
@@ -260,65 +260,13 @@ export function Footer() {
             </a>
           </div>
 
-          <div className="mt-16 grid gap-10 sm:grid-cols-3">
-            <div>
-              <div className="flex items-center gap-2.5">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--lime)]">
-                  <span className="h-2 w-2 rounded-full bg-[var(--ink)]" />
-                </span>
-                <span className="display text-[18px] tracking-[-0.025em] text-[var(--lime)]">
-                  Greenlight
-                </span>
-              </div>
-              <p className="mt-3 max-w-[15rem] text-[12.5px] leading-relaxed text-[var(--on-ink-2)]">
-                A production office that reads a screenplay and hands back the package.
-              </p>
-            </div>
-
-            <div>
-              <Eyebrow onInk>Built with</Eyebrow>
-              <ul className="mt-3 space-y-1.5 text-[13px] text-[var(--on-ink-2)]">
-                <li>Gemini on Google Cloud</li>
-                <li>Google Agent Development Kit</li>
-                <li>Parallel Search API</li>
-                <li>FastAPI · Next.js</li>
-              </ul>
-            </div>
-
-            <div>
-              <Eyebrow onInk>The sample</Eyebrow>
-              <p className="mt-3 text-[13px] leading-relaxed text-[var(--on-ink-2)]">
-                <span className="text-[var(--on-ink)]">The Projectionist</span> is original
-                material written for this project, seeded with clearance risks across the
-                whole spectrum.
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-12 grid gap-2.5 sm:grid-cols-3">
-            {[
-              ["Load the sample", "#submit"],
-              ["See the crew", "#crew"],
-              ["What comes back", "#how"],
-            ].map(([label, href]) => (
-              <a
-                key={href}
-                href={href}
-                className="flex items-center justify-between rounded-[var(--r-sm)] border border-[var(--line-ink)] px-4 py-3 text-[13px] text-[var(--on-ink)] transition hover:border-[var(--lime)] hover:text-[var(--lime)]"
-              >
-                {label}
-                <span className="text-[12px]">↗</span>
-              </a>
-            ))}
-          </div>
-
           {/* The ghosted wordmark, bled off the bottom edge. */}
           <div
             aria-hidden
-            className="pointer-events-none mt-10 select-none overflow-hidden text-center"
+            className="pointer-events-none mt-16 select-none overflow-hidden text-center"
           >
             <span className="display block text-[clamp(3.5rem,15vw,11rem)] leading-[0.8] tracking-[-0.045em] text-white/[0.07]">
-              Greenlight
+              First AD
             </span>
           </div>
         </div>

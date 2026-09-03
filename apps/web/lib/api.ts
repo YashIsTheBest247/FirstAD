@@ -1,4 +1,4 @@
-import type { CrewMember, PipelineEvent } from "./types";
+import type { CrewMember, PipelineEvent, ProductionPackage } from "./types";
 
 export const API_BASE =
   process.env.NEXT_PUBLIC_API_BASE?.replace(/\/$/, "") ?? "http://localhost:8000";
@@ -93,5 +93,91 @@ export async function* streamAnalysis(
         /* A truncated record is not worth killing the run over. */
       }
     }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Stored runs
+
+   A run is persisted server side the moment it completes, so a refresh does
+   not throw away two minutes of work and a finished package has a shareable
+   id.
+   --------------------------------------------------------------------------- */
+
+export interface RunSummary {
+  run_id: string;
+  title: string;
+  saved_at: string;
+  scene_count: number;
+  page_count: number;
+  shoot_days: number;
+  red_flags: number;
+  searches: number;
+  recorded: boolean;
+}
+
+export interface StoredRun {
+  run_id: string;
+  saved_at: string;
+  setting: string;
+  searches: number;
+  recorded: boolean;
+  package: ProductionPackage;
+}
+
+export async function getRuns(limit = 25): Promise<RunSummary[]> {
+  const res = await fetch(`${API_BASE}/api/runs?limit=${limit}`, { cache: "no-store" });
+  if (!res.ok) return [];
+  const data = (await res.json()) as { runs: RunSummary[] };
+  return data.runs;
+}
+
+export async function getRun(runId: string): Promise<StoredRun> {
+  const res = await fetch(`${API_BASE}/api/runs/${encodeURIComponent(runId)}`, {
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error(await detailOf(res, "Could not load that run."));
+  return res.json();
+}
+
+/**
+ * The run bundled with the repository.
+ *
+ * Exists so the product can be looked at without anyone holding API keys. It
+ * is a real captured pipeline output, and it carries `recorded: true` so the
+ * UI can say so rather than passing it off as a live result.
+ */
+export async function getDemo(): Promise<StoredRun> {
+  const res = await fetch(`${API_BASE}/api/demo`, { cache: "no-store" });
+  if (!res.ok) throw new Error(await detailOf(res, "No recorded run is bundled."));
+  return res.json();
+}
+
+export const CSV_DOCUMENTS = [
+  "stripboard",
+  "day-out-of-days",
+  "breakdown",
+  "clearance",
+  "budget",
+  "call-sheets",
+] as const;
+
+export type CsvDocument = (typeof CSV_DOCUMENTS)[number];
+
+/** Download links are plain URLs so the browser handles the save itself. */
+export function csvUrl(runId: string, document: CsvDocument): string {
+  return `${API_BASE}/api/runs/${encodeURIComponent(runId)}/export/${document}.csv`;
+}
+
+export function jsonUrl(runId: string): string {
+  return `${API_BASE}/api/runs/${encodeURIComponent(runId)}/export.json`;
+}
+
+async function detailOf(res: Response, fallback: string): Promise<string> {
+  try {
+    const body = await res.json();
+    return body?.detail ?? fallback;
+  } catch {
+    return fallback;
   }
 }

@@ -35,9 +35,9 @@ const data = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Greenlight",
+  title: "First AD · Script to shooting schedule",
   description:
-    "A production office that reads a screenplay and returns a stripboard, a clearance report, a budget, and call sheets.",
+    "A 1st Assistant Director for your screenplay. Nine Gemini agents turn a script into a stripboard, a clearance report, a budget, and call sheets.",
 };
 
 export default function RootLayout({

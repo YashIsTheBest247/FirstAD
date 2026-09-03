@@ -1,4 +1,4 @@
-"""Greenlight HTTP API.
+"""First AD HTTP API.
 
 One endpoint does the real work. It streams server-sent events so the client
 sees each crew member start and finish rather than waiting on a single opaque
@@ -9,30 +9,35 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 from pathlib import Path
 from typing import AsyncIterator
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import Response, StreamingResponse
 from pydantic import BaseModel, Field
 
 from app.agents.crew import CREW_ROLES
 from app.core.config import get_settings
+from app.core.exports import EXPORTS
+from app.core.store import RunStore
 from app.pipeline import PipelineRun
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
 log = logging.getLogger(__name__)
 
 SAMPLES_DIR = Path(__file__).resolve().parents[3] / "samples"
+RECORDED_RUN = SAMPLES_DIR / "recorded-run.json"
 
 app = FastAPI(
-    title="Greenlight",
+    title="First AD",
     description="A production office that reads a screenplay and returns a pre-production package.",
     version="0.1.0",
 )
 
 settings = get_settings()
+store = RunStore()
 
 app.add_middleware(
     CORSMiddleware,
@@ -55,8 +60,25 @@ def _sse(payload: dict) -> str:
 
 async def _stream(text: str, filename: str, setting: str) -> AsyncIterator[str]:
     run = PipelineRun(raw_text=text, filename=filename, setting=setting)
+
     async for event in run.run():
+        # A finished package is persisted before it is streamed, so the client
+        # already has a permalink by the time it renders the result. A storage
+        # failure must not lose the run the user just waited two minutes for.
+        if event.get("type") == "complete":
+            try:
+                store.save(
+                    event["package"],
+                    searches=int(event.get("searches_run") or 0),
+                    setting=setting,
+                )
+                event["saved"] = True
+            except Exception:  # noqa: BLE001 - the run itself still succeeded
+                log.exception("could not persist run")
+                event["saved"] = False
+
         yield _sse(event)
+
     yield "data: [DONE]\n\n"
 
 
@@ -155,6 +177,142 @@ async def analyse_upload(
         media_type="text/event-stream",
         headers=SSE_HEADERS,
     )
+
+
+@app.get("/api/runs")
+async def list_runs(limit: int = 25) -> dict:
+    """Every package this instance has produced, newest first."""
+    return {"runs": [s.as_dict() for s in store.list(limit=max(1, min(limit, 100)))]}
+
+
+@app.get("/api/runs/{run_id}")
+async def get_run(run_id: str) -> dict:
+    try:
+        document = store.get(run_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    if document is None:
+        raise HTTPException(status_code=404, detail="No such run.")
+    return document
+
+
+@app.delete("/api/runs/{run_id}")
+async def delete_run(run_id: str) -> dict:
+    try:
+        removed = store.delete(run_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    if not removed:
+        raise HTTPException(status_code=404, detail="No such run.")
+    return {"deleted": run_id}
+
+
+@app.get("/api/demo")
+async def demo() -> dict:
+    """A previously captured run, bundled with the repository.
+
+    This exists so the product can be evaluated without anyone holding API
+    keys. It is a real pipeline output that was recorded to disk, not a
+    simulation, and it is flagged `recorded` so the UI can say so plainly
+    rather than passing it off as a live result.
+    """
+    if not RECORDED_RUN.exists():
+        raise HTTPException(
+            status_code=404,
+            detail=(
+                "No recorded run is bundled. Run a script with keys configured, then "
+                "POST /api/runs/{run_id}/promote to capture it as the demo."
+            ),
+        )
+    try:
+        document = json.loads(RECORDED_RUN.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise HTTPException(status_code=500, detail=f"Recorded run is corrupt: {exc}") from exc
+
+    document["recorded"] = True
+    return document
+
+
+@app.get("/api/runs/{run_id}/export/{document}.csv")
+async def export_run(run_id: str, document: str) -> Response:
+    """One document out of a stored run, as a spreadsheet.
+
+    A production office moves these as CSV, so the columns are named the way
+    scheduling software and clearance firms already label them and a row can be
+    pasted into an existing sheet without re-labelling.
+    """
+    builder = EXPORTS.get(document)
+    if builder is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Unknown document. Available: {', '.join(sorted(EXPORTS))}.",
+        )
+
+    stored = _load_run_or_demo(run_id)
+    package = stored.get("package") or {}
+
+    title = ((package.get("script") or {}).get("header") or {}).get("title") or "firstad"
+    slug = re.sub(r"[^a-z0-9]+", "-", str(title).lower()).strip("-") or "firstad"
+
+    return Response(
+        # A BOM is what makes Excel open UTF-8 CSV without mangling accents.
+        content="﻿" + builder(package),
+        media_type="text/csv; charset=utf-8",
+        headers={"Content-Disposition": f'attachment; filename="{slug}-{document}.csv"'},
+    )
+
+
+@app.get("/api/runs/{run_id}/export.json")
+async def export_run_json(run_id: str) -> Response:
+    """The whole package, for anyone who would rather have the structured data."""
+    stored = _load_run_or_demo(run_id)
+    title = (((stored.get("package") or {}).get("script") or {}).get("header") or {}).get(
+        "title"
+    ) or "firstad"
+    slug = re.sub(r"[^a-z0-9]+", "-", str(title).lower()).strip("-") or "firstad"
+
+    return Response(
+        content=json.dumps(stored, ensure_ascii=False, indent=1),
+        media_type="application/json",
+        headers={"Content-Disposition": f'attachment; filename="{slug}-package.json"'},
+    )
+
+
+def _load_run_or_demo(run_id: str) -> dict:
+    """Resolve a run id, accepting the literal id `demo` for the bundled run."""
+    if run_id == "demo":
+        if not RECORDED_RUN.exists():
+            raise HTTPException(status_code=404, detail="No recorded run is bundled.")
+        return json.loads(RECORDED_RUN.read_text(encoding="utf-8"))
+
+    try:
+        document = store.get(run_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    if document is None:
+        raise HTTPException(status_code=404, detail="No such run.")
+    return document
+
+
+@app.post("/api/runs/{run_id}/promote")
+async def promote_run(run_id: str) -> dict:
+    """Capture a stored run as the bundled demo.
+
+    Keeping this an explicit action means the shipped demo is always a real
+    result somebody chose, rather than a fixture that drifts away from what the
+    pipeline actually produces.
+    """
+    try:
+        document = store.get(run_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    if document is None:
+        raise HTTPException(status_code=404, detail="No such run.")
+
+    document["recorded"] = True
+    RECORDED_RUN.parent.mkdir(parents=True, exist_ok=True)
+    RECORDED_RUN.write_text(json.dumps(document, ensure_ascii=False, indent=1), encoding="utf-8")
+    return {"promoted": run_id, "path": str(RECORDED_RUN)}
 
 
 def _extract_pdf(raw: bytes) -> str:

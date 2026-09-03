@@ -1,4 +1,4 @@
-"""Typed contracts for every stage of the Greenlight pipeline.
+"""Typed contracts for every stage of the First AD pipeline.
 
 Each stage consumes the previous stage's model and emits its own. Nothing is
 passed between agents as free text, which is what keeps a seven-stage LLM

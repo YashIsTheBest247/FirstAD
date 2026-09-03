@@ -21,6 +21,6 @@ dist/
 service-account*.json
 
 # Runtime artefacts
-services/api/.runs/
+**/.runs/
 .DS_Store
 Thumbs.db

@@ -30,7 +30,7 @@ from app.core.config import get_settings
 
 log = logging.getLogger(__name__)
 
-APP_NAME = "greenlight"
+APP_NAME = "firstad"
 
 T = TypeVar("T", bound=BaseModel)
 

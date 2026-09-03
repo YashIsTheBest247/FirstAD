@@ -1,6 +1,6 @@
 """Runtime configuration.
 
-Greenlight runs against Gemini either through a plain API key (fastest to get
+First AD runs against Gemini either through a plain API key (fastest to get
 going) or through Vertex AI on a Google Cloud project. Both paths are wired,
 and the ADK picks between them from these environment variables.
 """

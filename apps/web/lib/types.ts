@@ -24,6 +24,8 @@ export interface Scene {
   synopsis: string;
   characters: string[];
   background: string[];
+  /** Verbatim scene text, used by the annotated script viewer. */
+  raw_text: string;
 }
 
 export interface ScriptHeader {

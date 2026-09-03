@@ -1,4 +1,4 @@
-"""The Greenlight pipeline.
+"""The First AD pipeline.
 
 Seven stages, fixed order, typed handoff between each. The only concurrency is
 where the work is genuinely independent: the breakdown and the clearance

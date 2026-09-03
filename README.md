@@ -1,4 +1,4 @@
-# Greenlight
+# First AD
 
 **A production office that reads a screenplay and hands back a stripboard, a clearance report, a budget, and call sheets.**
 
@@ -14,7 +14,7 @@ Between "we have a script" and "we're shooting" sits two to three weeks of ungla
 - A **clearance researcher** checks every proper name, business, phone number, licence plate, and address in the script against the real world, because a corrupt alderman named Grant Holloway is a defamation suit if a real Chicago alderman is named Grant Holloway. This costs $2,000 to $5,000 and takes 5 to 10 business days, and no film gets errors-and-omissions insurance without it.
 - A **line producer** turns all of that into a budget top sheet that a financier will actually read.
 
-Greenlight does the whole package in about two minutes.
+First AD does the whole package in about two minutes.
 
 ## Why it needs both Google Cloud and Parallel
 
@@ -22,7 +22,7 @@ The two halves are load-bearing in different ways.
 
 **Gemini** does the reading and the judgement: what a scene actually needs, which day is too heavy because of what is in it rather than how long it is, which schedule change clears a turnaround breach.
 
-**Parallel Search** does the part a language model structurally cannot. Ask any model "is there a real Chicago alderman named Grant Holloway" and it will answer with total confidence either way, because the question is about the world today and not about the model's weights. A clearance report built on a confabulation is worse than no report at all. So every risk verdict in Greenlight is anchored to a URL a production lawyer can open, and every permit figure comes from a source rather than a guess.
+**Parallel Search** does the part a language model structurally cannot. Ask any model "is there a real Chicago alderman named Grant Holloway" and it will answer with total confidence either way, because the question is about the world today and not about the model's weights. A clearance report built on a confabulation is worse than no report at all. So every risk verdict in First AD is anchored to a URL a production lawyer can open, and every permit figure comes from a source rather than a guess.
 
 That is also why the clearance module is not a chatbot. It is a fixed pipeline that fans out one grounded search per entity and grades the evidence.
 
@@ -170,6 +170,71 @@ It also covers all four stripboard colours and repeats locations, so the schedul
 | `GET` | `/api/sample` | The sample screenplay |
 | `POST` | `/api/analyse` | Run the pipeline, streamed as SSE |
 | `POST` | `/api/analyse/upload` | Same, from a file upload (`.fountain`, `.txt`, `.pdf`) |
+| `GET` | `/api/runs` | Stored packages, newest first |
+| `GET` | `/api/runs/{id}` | One stored package |
+| `DELETE` | `/api/runs/{id}` | Discard a stored package |
+| `GET` | `/api/runs/{id}/export/{document}.csv` | One document as a spreadsheet |
+| `GET` | `/api/runs/{id}/export.json` | The whole package as JSON |
+| `GET` | `/api/demo` | The recorded run bundled with the repo |
+| `POST` | `/api/runs/{id}/promote` | Capture a stored run as the bundled demo |
+
+`{document}` is one of `stripboard`, `day-out-of-days`, `breakdown`, `clearance`, `budget`, `call-sheets`. The literal id `demo` also works on both export routes.
+
+Runs are persisted the moment they complete, so a refresh does not throw away a two minute run and every finished package has a permalink (`/?run=<id>`). Run ids coming off a URL are matched against a strict pattern before they touch the filesystem.
+
+---
+
+## Deliverables in the UI
+
+| Tab | What it is |
+| --- | --- |
+| Stripboard | Shooting days with the real strip colours, plus a day-out-of-days grid that marks hold days, because a hold day is paid |
+| Clearance | Risk verdicts, each carrying the sources it was reached from |
+| Annotated script | The screenplay with every checked reference marked in place. Click a mark for the verdict, the collisions, and the citations |
+| Locations | Permit authority, fee, lead time, and hazards per set |
+| Compliance | Turnaround, minors, meal, and safety flags, each with the specific schedule change that clears it |
+| Budget | Top sheet where every line names what in the script drives the cost |
+| Call sheets | One per shooting day, with cast calls, department pre-calls, and safety notes |
+| Breakdown | Every tagged element, with the ones forcing a department call highlighted |
+
+---
+
+## Tests
+
+The deterministic core is the part with exactly one right answer, so it is the part under test: the parser, the stripboard optimiser, the run store, and the CSV exports. No API keys or network needed.
+
+```bash
+cd services/api
+.venv/Scripts/python.exe -m pip install -r requirements-dev.txt
+.venv/Scripts/python.exe -m pytest -q
+```
+
+Two behaviours are pinned deliberately because they look like bugs and are not:
+
+- **Summed eighths exceed the page count on a script of very short scenes.** Every scene is floored at one eighth, so twenty one-line scenes take twenty strips while occupying about a page of paper. That is how a real board behaves.
+- **`CONTINUOUS` inherits the previous scene's lighting state.** Left unresolved it defaults to day, which puts a night exterior on a yellow strip and schedules it into the wrong block.
+
+---
+
+## Deploying
+
+Frontend on Vercel, API on Cloud Run, which keeps the model calls inside Google Cloud.
+
+```bash
+# API. Build from the repository root, not from services/api.
+gcloud run deploy firstad-api \
+  --source . \
+  --region us-central1 \
+  --set-env-vars "GOOGLE_GENAI_USE_VERTEXAI=TRUE,GOOGLE_CLOUD_PROJECT=$PROJECT" \
+  --set-secrets "PARALLEL_API_KEY=parallel-api-key:latest"
+```
+
+Then set `CORS_ORIGINS` on the API to the deployed web origin, and `NEXT_PUBLIC_API_BASE` on Vercel to the Cloud Run URL.
+
+Two caveats worth knowing before you deploy:
+
+- Stored runs live on the container filesystem, which Cloud Run does not persist across instances. For a demo that is fine; for anything real, mount GCS or point `RUN_STORE_DIR` at a volume.
+- A full run can exceed Cloud Run's default 300s request timeout on a feature-length script. Raise `--timeout` to 900.
 
 ---
 

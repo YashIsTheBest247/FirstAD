@@ -1,0 +1,12 @@
+**/.venv/
+**/node_modules/
+**/.next/
+**/__pycache__/
+**/.pytest_cache/
+**/.runs/
+**/.git/
+**/.env
+**/.env.local
+apps/web/
+docs/
+*.md

@@ -1,7 +1,17 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { getCrew, getHealth, getSample, streamAnalysis, type HealthStatus } from "@/lib/api";
+import {
+  getCrew,
+  getDemo,
+  getHealth,
+  getRun,
+  getRuns,
+  getSample,
+  streamAnalysis,
+  type HealthStatus,
+  type RunSummary,
+} from "@/lib/api";
 import type { CrewMember, ProductionPackage, StageTrace } from "@/lib/types";
 import { ClearancePanel } from "@/components/ClearancePanel";
 import { CrewBoard } from "@/components/CrewBoard";
@@ -14,6 +24,8 @@ import {
   CompliancePanel,
   LocationsPanel,
 } from "@/components/Panels";
+import { ExportBar, RecordedNotice, RunHistory } from "@/components/RunTools";
+import { ScriptViewer } from "@/components/ScriptViewer";
 import { Stripboard } from "@/components/Stripboard";
 import { SubmitCard } from "@/components/SubmitCard";
 import { Eyebrow, Headline } from "@/components/ui";
@@ -21,6 +33,7 @@ import { Eyebrow, Headline } from "@/components/ui";
 type Tab =
   | "stripboard"
   | "clearance"
+  | "script"
   | "locations"
   | "compliance"
   | "budget"
@@ -30,6 +43,7 @@ type Tab =
 const TABS: { id: Tab; label: string }[] = [
   { id: "stripboard", label: "Stripboard" },
   { id: "clearance", label: "Clearance" },
+  { id: "script", label: "Annotated script" },
   { id: "locations", label: "Locations" },
   { id: "compliance", label: "Compliance" },
   { id: "budget", label: "Budget" },
@@ -47,50 +61,107 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [tab, setTab] = useState<Tab>("stripboard");
 
+  const [runs, setRuns] = useState<RunSummary[]>([]);
+  const [recordedAt, setRecordedAt] = useState<string | null>(null);
+
   const resultsRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+
+  const refreshRuns = useCallback(() => {
+    void getRuns().then(setRuns);
+  }, []);
+
+  const showPackage = useCallback(
+    (loaded: ProductionPackage, meta: { searches: number; recordedAt: string | null }) => {
+      setPkg(loaded);
+      setSearches(meta.searches);
+      setRecordedAt(meta.recordedAt);
+      setTab("stripboard");
+      requestAnimationFrame(() =>
+        resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
+      );
+    },
+    [],
+  );
+
+  const openRun = useCallback(
+    async (runId: string) => {
+      setError(null);
+      try {
+        const stored = await getRun(runId);
+        showPackage(stored.package, {
+          searches: stored.searches,
+          recordedAt: stored.recorded ? stored.saved_at : null,
+        });
+        const url = new URL(window.location.href);
+        url.searchParams.set("run", runId);
+        window.history.replaceState({}, "", url);
+      } catch (err) {
+        setError((err as Error).message);
+      }
+    },
+    [showPackage],
+  );
+
+  const openDemo = useCallback(async () => {
+    setError(null);
+    try {
+      const stored = await getDemo();
+      showPackage(stored.package, { searches: stored.searches, recordedAt: stored.saved_at });
+    } catch (err) {
+      setError((err as Error).message);
+    }
+  }, [showPackage]);
 
   useEffect(() => {
     void getHealth().then(setHealth);
     getCrew()
       .then(setCrew)
-      .catch(() => setError("Could not reach the Greenlight API. Is the backend running?"));
-  }, []);
+      .catch(() => setError("Could not reach the First AD API. Is the backend running?"));
+    refreshRuns();
 
-  const run = useCallback(async (input: { text: string; filename: string; setting: string }) => {
-    abortRef.current?.abort();
-    const controller = new AbortController();
-    abortRef.current = controller;
+    // A permalink opens straight into that package.
+    const requested = new URLSearchParams(window.location.search).get("run");
+    if (requested) void openRun(requested);
+  }, [openRun, refreshRuns]);
 
-    setRunning(true);
-    setError(null);
-    setTraces({});
-    setPkg(null);
-    setSearches(0);
+  const run = useCallback(
+    async (input: { text: string; filename: string; setting: string }) => {
+      abortRef.current?.abort();
+      const controller = new AbortController();
+      abortRef.current = controller;
 
-    document.getElementById("crew")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      setRunning(true);
+      setError(null);
+      setTraces({});
+      setPkg(null);
+      setSearches(0);
+      setRecordedAt(null);
 
-    try {
-      for await (const event of streamAnalysis(input, controller.signal)) {
-        if (event.type === "stage") {
-          setTraces((prev) => ({ ...prev, [event.stage.stage]: event.stage }));
-        } else if (event.type === "complete") {
-          setPkg(event.package);
-          setSearches(event.searches_run);
-          setTab("stripboard");
-          requestAnimationFrame(() =>
-            resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
-          );
-        } else if (event.type === "error") {
-          setError(event.message);
+      document.getElementById("crew")?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      try {
+        for await (const event of streamAnalysis(input, controller.signal)) {
+          if (event.type === "stage") {
+            setTraces((prev) => ({ ...prev, [event.stage.stage]: event.stage }));
+          } else if (event.type === "complete") {
+            showPackage(event.package, { searches: event.searches_run, recordedAt: null });
+            refreshRuns();
+            const url = new URL(window.location.href);
+            url.searchParams.set("run", event.run_id);
+            window.history.replaceState({}, "", url);
+          } else if (event.type === "error") {
+            setError(event.message);
+          }
         }
+      } catch (err) {
+        if ((err as Error).name !== "AbortError") setError((err as Error).message);
+      } finally {
+        setRunning(false);
       }
-    } catch (err) {
-      if ((err as Error).name !== "AbortError") setError((err as Error).message);
-    } finally {
-      setRunning(false);
-    }
-  }, []);
+    },
+    [refreshRuns, showPackage],
+  );
 
   const loadSample = useCallback(async () => {
     const sample = await getSample();
@@ -118,10 +189,27 @@ export default function Home() {
           }
         />
 
+        {/* Without keys the pipeline cannot run, so offer the captured run
+            rather than leaving a dead interface. */}
+        {!pkg && !running ? (
+          <section className="mx-auto max-w-[1240px] px-5">
+            <div className="flex flex-wrap items-center justify-between gap-4 rounded-[var(--r-md)] border border-dashed border-[var(--line)] px-5 py-4">
+              <p className="text-[13px] text-[var(--text-2)]">
+                {geminiMissing
+                  ? "No keys configured. You can still look at a package the crew produced earlier."
+                  : "Want to see a finished package before running one?"}
+              </p>
+              <button type="button" onClick={openDemo} className="pill pill-ghost">
+                Open a recorded run
+              </button>
+            </div>
+          </section>
+        ) : null}
+
         {error ? (
           <section className="mx-auto max-w-[1240px] px-5">
             <div className="rounded-[var(--r-md)] border border-[#f0bcbc] bg-[#fdeded] px-5 py-4">
-              <Eyebrow>Run failed</Eyebrow>
+              <Eyebrow>Something went wrong</Eyebrow>
               <p className="mt-1.5 text-[13.5px] text-[#7a2020]">{error}</p>
             </div>
           </section>
@@ -134,9 +222,11 @@ export default function Home() {
         <div ref={resultsRef} id="results">
           {pkg ? (
             <section className="mx-auto max-w-[1240px] px-5">
+              {recordedAt !== null ? <RecordedNotice savedAt={recordedAt} /> : null}
+
               <PackageHeader pkg={pkg} searches={searches} />
 
-              <nav className="mb-9 flex flex-wrap gap-1.5 border-b border-[var(--line)] pb-4">
+              <nav className="mb-6 flex flex-wrap gap-1.5 border-b border-[var(--line)] pb-4">
                 {TABS.map((t) => (
                   <button
                     key={t.id}
@@ -153,8 +243,15 @@ export default function Home() {
                 ))}
               </nav>
 
+              <div className="mb-9">
+                <ExportBar runId={pkg.run_id} recorded={recordedAt !== null} />
+              </div>
+
               {tab === "stripboard" ? <Stripboard board={pkg.stripboard} /> : null}
               {tab === "clearance" ? <ClearancePanel report={pkg.clearance} /> : null}
+              {tab === "script" ? (
+                <ScriptViewer script={pkg.script} clearance={pkg.clearance} />
+              ) : null}
               {tab === "locations" ? <LocationsPanel intel={pkg.locations} /> : null}
               {tab === "compliance" ? <CompliancePanel report={pkg.compliance} /> : null}
               {tab === "budget" ? <BudgetPanel budget={pkg.budget} /> : null}
@@ -163,6 +260,8 @@ export default function Home() {
             </section>
           ) : null}
         </div>
+
+        <RunHistory runs={runs} activeRunId={pkg?.run_id ?? null} onOpen={openRun} />
 
         <Deliverables />
       </div>
@@ -207,8 +306,8 @@ function PackageHeader({ pkg, searches }: { pkg: ProductionPackage; searches: nu
 function Metric({
   label,
   value,
-  lime,
-  red,
+  lime = false,
+  red = false,
 }: {
   label: string;
   value: React.ReactNode;
@@ -216,14 +315,16 @@ function Metric({
   red?: boolean;
 }) {
   const colour = red
-    ? "text-[#ff7a7a]"
+    ? "text-[#ff8a8a]"
     : lime
       ? "text-[var(--lime)]"
       : "text-[var(--on-ink)]";
   return (
     <div>
       <Eyebrow onInk>{label}</Eyebrow>
-      <div className={`display mt-1.5 text-[30px] leading-none tracking-[-0.02em] ${colour}`}>
+      <div
+        className={`mt-1.5 font-[family-name:var(--font-grotesk)] text-3xl font-extrabold leading-none tracking-[-0.03em] ${colour}`}
+      >
         {value}
       </div>
     </div>

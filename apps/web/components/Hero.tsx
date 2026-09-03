@@ -1,6 +1,7 @@
 "use client";
 
 import type { HealthStatus } from "@/lib/api";
+import { Wordmark } from "./Logo";
 
 /**
  * The hero follows the reference layout: navigation inside the coloured block,
@@ -87,12 +88,7 @@ function Nav() {
   return (
     <nav className="relative flex items-center justify-between px-6 pt-6 sm:px-14">
       <a href="#top" className="flex items-center gap-2.5">
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--lime)]">
-          <span className="h-2.5 w-2.5 rounded-full bg-[var(--ink)]" />
-        </span>
-        <span className="display text-[20px] tracking-[-0.025em] text-[var(--lime)]">
-          Greenlight
-        </span>
+        <Wordmark size={28} tone="lime" />
       </a>
 
       <div className="hidden items-center gap-8 md:flex">
