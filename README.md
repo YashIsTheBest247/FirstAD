@@ -14,7 +14,7 @@ Between "we have a script" and "we're shooting" sits two to three weeks of ungla
 - A **clearance researcher** checks every proper name, business, phone number, licence plate, and address in the script against the real world, because a corrupt alderman named Grant Holloway is a defamation suit if a real Chicago alderman is named Grant Holloway. This costs $2,000 to $5,000 and takes 5 to 10 business days, and no film gets errors-and-omissions insurance without it.
 - A **line producer** turns all of that into a budget top sheet that a financier will actually read.
 
-First AD does the whole package in about two minutes.
+First AD does the whole package in about five minutes. That figure is measured, not projected: a 14-scene short runs end to end in 323 seconds on the Gemini free tier, with agent concurrency deliberately gated to stay inside its rate limit.
 
 ## Why it needs both Google Cloud and Parallel
 

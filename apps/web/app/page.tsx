@@ -16,6 +16,7 @@ import type { CrewMember, ProductionPackage, StageTrace } from "@/lib/types";
 import { ClearancePanel } from "@/components/ClearancePanel";
 import { CrewBoard } from "@/components/CrewBoard";
 import { Hero } from "@/components/Hero";
+import { IntroVideo, shouldPlayIntro } from "@/components/IntroVideo";
 import { Nav } from "@/components/Nav";
 import { Deliverables, Footer, StatsBento, TheProblem } from "@/components/Marketing";
 import {
@@ -63,6 +64,9 @@ export default function Home() {
   const [tab, setTab] = useState<Tab>("stripboard");
 
   const [runs, setRuns] = useState<RunSummary[]>([]);
+  // Starts closed so the server and the first client render agree; the
+  // decision needs sessionStorage, which only exists in the browser.
+  const [introOpen, setIntroOpen] = useState(false);
   const [recordedAt, setRecordedAt] = useState<string | null>(null);
 
   const resultsRef = useRef<HTMLDivElement>(null);
@@ -113,6 +117,10 @@ export default function Home() {
       setError((err as Error).message);
     }
   }, [showPackage]);
+
+  useEffect(() => {
+    if (shouldPlayIntro()) setIntroOpen(true);
+  }, []);
 
   useEffect(() => {
     void getHealth().then(setHealth);
@@ -183,8 +191,9 @@ export default function Home() {
 
   return (
     <main>
+      <IntroVideo open={introOpen} onClose={() => setIntroOpen(false)} />
       <Nav />
-      <Hero health={health} />
+      <Hero health={health} onReplayIntro={() => setIntroOpen(true)} />
       <TheProblem />
       <StatsBento />
 

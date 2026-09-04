@@ -71,7 +71,7 @@ export function Wordmark({
       <span className="flex flex-col leading-none">
         <span className={`display text-[20px] tracking-[-0.02em] ${text}`}>First AD</span>
         {showRole ? (
-          <span className="mt-0.5 font-mono text-[8.5px] uppercase tracking-[0.2em] text-[var(--on-ink-2)]">
+          <span className="mt-0.5 hidden font-mono text-[8.5px] uppercase tracking-[0.2em] text-white/60 sm:block">
             1st Assistant Director
           </span>
         ) : null}

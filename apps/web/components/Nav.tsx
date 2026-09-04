@@ -87,7 +87,7 @@ export function Nav() {
     >
       <nav className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
         <a href="#top" className="press shrink-0" onClick={() => setOpen(false)}>
-          <Wordmark size={26} tone="lime" />
+          <Wordmark size={26} tone="lime" showRole />
         </a>
 
         <div className="hidden items-center gap-7 md:flex">

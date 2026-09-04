@@ -10,7 +10,13 @@ import type { HealthStatus } from "@/lib/api";
  * The reference marks its left and right edges with dashed ticks. Here those
  * become film perforations, which is the same rhythm doing thematic work.
  */
-export function Hero({ health }: { health: HealthStatus | null }) {
+export function Hero({
+  health,
+  onReplayIntro,
+}: {
+  health: HealthStatus | null;
+  onReplayIntro?: () => void;
+}) {
   return (
     <section id="top" className="px-3 pt-3 sm:px-5 sm:pt-5">
       <div className="relative overflow-hidden rounded-[var(--r-xl)] bg-[var(--blue-deep)]">
@@ -50,9 +56,21 @@ export function Hero({ health }: { health: HealthStatus | null }) {
             </span>
           </h1>
 
-          <a href="#submit" className="pill pill-lime mt-8">
-            Break down a script
-          </a>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <a href="#submit" className="pill pill-lime">
+              Break down a script
+            </a>
+            {onReplayIntro ? (
+              <button
+                type="button"
+                onClick={onReplayIntro}
+                className="press inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.16em] text-white backdrop-blur-sm hover:border-white/70"
+              >
+                <PlayGlyph />
+                Replay intro
+              </button>
+            ) : null}
+          </div>
 
           {/* Bottom band: a headline stat on the left, live provider state on
               the right, mirroring the reference's stat and play-button pair. */}
@@ -141,5 +159,15 @@ function Perforations({ side }: { side: "left" | "right" }) {
         <span key={i} className="block h-3.5 w-2.5 rounded-[2px] bg-white/22" />
       ))}
     </div>
+  );
+}
+
+
+/** A small solid triangle. Cheaper than an icon dependency for one glyph. */
+function PlayGlyph() {
+  return (
+    <svg width="9" height="10" viewBox="0 0 9 10" fill="currentColor" aria-hidden>
+      <path d="M0 0.5 L9 5 L0 9.5 Z" />
+    </svg>
   );
 }
