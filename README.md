@@ -62,20 +62,6 @@ Seven stages, fixed order, a typed Pydantic contract between every one. Concurre
                     └─────────────────────────────┘
 ```
 
-The agent roster is not a metaphor. It is how the work actually divides on a film, and dividing it the same way keeps each instruction narrow enough to be reliable.
-
-### Design decisions worth calling out
-
-**Deterministic where it can be, model where it must be.** Slugline detection and page-eighth measurement have exact answers, so they are solved in code ([`core/screenplay.py`](services/api/app/core/screenplay.py)). Page eighths are measured against *typeset* row widths rather than source lines, because an action paragraph written as one long line wraps to three rows on a real page. `CONTINUOUS` headings inherit the previous scene's lighting state, which changes both the strip colour and which day the scene lands on.
-
-**The optimiser proposes, the agent disposes.** Packing scenes into days to minimise company moves is a constraint problem, so [`core/scheduling.py`](services/api/app/core/scheduling.py) solves it and hands the Scheduler agent a candidate board. The agent then applies what an optimiser cannot encode: do not strand cast 3 on hold for four days, this day is too heavy because there is a stunt in it, that permit will not come through in time.
-
-**Typed handoffs, not prose.** Every agent carries an `output_schema`, so stage N+1 receives a validated object and never re-interprets a paragraph. This is what makes a seven-stage LLM pipeline reproducible.
-
-**Runs on the free tier by design.** Both model tiers default to `gemini-2.5-flash`, which is what the Gemini API free tier gives useful quota on, and agent concurrency is gated to 3 with exponential backoff on rate limits so a long script degrades into a slower run rather than a failed one. Setting `MODEL_REASONING=gemini-2.5-pro` measurably improves the four stages making consequential judgements (schedule, compliance, budget, risk) if you have paid quota. The Parallel search budget is capped per run for the same reason: every researched entity is a billable call.
-
----
-
 ## Google Cloud integration
 
 Complete and verified end to end. Every agent call in the pipeline goes through the Agent Development Kit, and the full nine-agent run has been executed against live Gemini, not mocked.
@@ -119,6 +105,14 @@ GOOGLE_CLOUD_LOCATION=us-central1
 ```
 
 Vertex is the better production path: no key to leak, and access governed by the service account's IAM role rather than a shared secret. [`cloudbuild.yaml`](cloudbuild.yaml) deploys to Cloud Run with `GOOGLE_GENAI_USE_VERTEXAI=TRUE` and expects `roles/aiplatform.user` on the runtime service account. The API-key path exists because it needs no billing account, which matters for anyone cloning this to try it.
+
+### Safety configuration
+
+Every agent runs with the four harm categories set to `BLOCK_ONLY_HIGH` rather than the defaults.
+
+This is not a shortcut. These agents read screenplays, and drama is made of the things safety filters are tuned to catch: a bribe changing hands, a chase, a character thrown against a dumpster. Under default thresholds the breakdown agent can refuse to tag the props in a fight scene, and a refusal is not a transient failure, so the retry path does not rescue it. The stage simply dies on the exact material the product exists to process.
+
+`BLOCK_ONLY_HIGH` rather than `BLOCK_NONE` or `OFF`, deliberately: loose enough for professional creative material, still refusing what is genuinely egregious. Turning the filters off in a tool anyone can upload to would be careless.
 
 ### Partner integration
 
@@ -230,7 +224,7 @@ Runs are persisted the moment they complete, so a refresh does not throw away a 
 
 ---
 
-## Deliverables in the UI
+## Deliverables
 
 | Tab | What it is |
 | --- | --- |
@@ -245,9 +239,6 @@ Runs are persisted the moment they complete, so a refresh does not throw away a 
 
 ---
 
-## Tests
-
-The deterministic core is the part with exactly one right answer, so it is the part under test: the parser, the stripboard optimiser, the run store, and the CSV exports. No API keys or network needed.
 
 ```bash
 cd services/api

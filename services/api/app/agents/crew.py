@@ -15,6 +15,7 @@ from __future__ import annotations
 from functools import lru_cache
 
 from google.adk.agents import LlmAgent
+from google.genai import types
 from pydantic import BaseModel, Field
 
 from app.core.config import get_settings
@@ -66,6 +67,35 @@ Rules that apply to you at all times:
 """
 
 
+# --------------------------------------------------------------------------
+# Safety
+#
+# These agents read screenplays, and drama is made of the things safety
+# filters are tuned to catch: a bribe changing hands, a chase, someone thrown
+# against a dumpster. Under the default thresholds a breakdown agent can
+# refuse to tag the props in a fight scene, and a refusal is not a transient
+# failure, so the retry path will not save it. The stage simply dies on the
+# exact material this product exists to process.
+#
+# BLOCK_ONLY_HIGH rather than BLOCK_NONE or OFF. The looser setting is enough
+# to let professional creative material through while still refusing content
+# that is genuinely egregious, and turning the filters off entirely would be
+# both unnecessary and careless in a tool anyone can upload to.
+# --------------------------------------------------------------------------
+
+_SAFETY_SETTINGS = [
+    types.SafetySetting(category=category, threshold=types.HarmBlockThreshold.BLOCK_ONLY_HIGH)
+    for category in (
+        types.HarmCategory.HARM_CATEGORY_HARASSMENT,
+        types.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+        types.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+        types.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+    )
+]
+
+GENERATION_CONFIG = types.GenerateContentConfig(safety_settings=_SAFETY_SETTINGS)
+
+
 def _agent(
     name: str,
     description: str,
@@ -79,6 +109,7 @@ def _agent(
         description=description,
         instruction=HOUSE_STYLE + instruction,
         output_schema=schema,
+        generate_content_config=GENERATION_CONFIG,
         # An agent that owes a typed answer must not hand control to a peer.
         disallow_transfer_to_parent=True,
         disallow_transfer_to_peers=True,
