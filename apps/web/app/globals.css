@@ -319,6 +319,31 @@ body {
    does not snap.
    -------------------------------------------------------------------------- */
 
+/* Tailwind v4 dropped `cursor: pointer` from its button reset, so every button
+   in the app was showing the default arrow. Restored here rather than adding a
+   utility class to forty call sites. */
+button:not(:disabled),
+summary,
+[role="button"]:not([aria-disabled="true"]),
+a[href],
+label[for],
+input[type="file"],
+select {
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+/* Text inputs keep a caret; the file input above is the exception because it
+   behaves like a button. */
+input:not([type="file"]),
+textarea {
+  cursor: auto;
+}
+
 .press {
   transition:
     transform 130ms cubic-bezier(0.2, 0.8, 0.2, 1),

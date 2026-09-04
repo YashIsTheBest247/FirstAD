@@ -246,9 +246,9 @@ export function Footer() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--ink)] via-[var(--ink)]/85 to-transparent" />
 
-        <div className="relative px-6 py-16 sm:px-14 sm:py-20">
+        <div className="relative px-6 py-14 sm:px-14 sm:py-16">
           <div className="mx-auto max-w-lg text-center">
-            <h2 className="text-[clamp(1.9rem,4.4vw,3rem)] text-[var(--on-ink)]">
+            <h2 className="text-[clamp(1.85rem,4.2vw,2.9rem)] text-[var(--on-ink)]">
               <Headline onInk>Ready to *roll*?</Headline>
             </h2>
             <p className="mx-auto mt-4 max-w-sm text-[13.5px] leading-relaxed text-[var(--on-ink-2)]">
@@ -263,9 +263,9 @@ export function Footer() {
           {/* The ghosted wordmark, bled off the bottom edge. */}
           <div
             aria-hidden
-            className="pointer-events-none mt-16 select-none overflow-hidden text-center"
+            className="pointer-events-none mt-9 select-none overflow-hidden text-center"
           >
-            <span className="display block text-[clamp(3.5rem,15vw,11rem)] leading-[0.8] tracking-[-0.045em] text-white/[0.07]">
+            <span className="display block text-[clamp(2rem,6.5vw,4.5rem)] leading-[0.74] tracking-[-0.05em] text-white/[0.09]">
               First AD
             </span>
           </div>

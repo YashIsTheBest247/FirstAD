@@ -227,9 +227,24 @@ export default function Home() {
           </section>
         ) : null}
 
-        {crew.length > 0 ? (
-          <CrewBoard crew={crew} traces={traces} searchesRun={searches} />
-        ) : null}
+        {/* The anchor lives here rather than inside CrewBoard, which only
+            renders once /api/crew resolves. Navigation must not dead-end
+            because a fetch failed. */}
+        <section id="crew">
+          {crew.length > 0 ? (
+            <CrewBoard crew={crew} traces={traces} searchesRun={searches} />
+          ) : (
+            <div id="how" className="mx-auto max-w-[1240px] px-5">
+              <div className="rounded-[var(--r-md)] border border-dashed border-[var(--line)] px-5 py-8 text-center">
+                <Eyebrow>The crew</Eyebrow>
+                <p className="mt-2 text-[13.5px] text-[var(--text-2)]">
+                  Waiting on the API to list the nine agents. If this does not fill in, the
+                  backend is unreachable.
+                </p>
+              </div>
+            </div>
+          )}
+        </section>
 
         <div ref={resultsRef} id="results">
           {pkg ? (

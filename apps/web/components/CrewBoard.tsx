@@ -37,7 +37,7 @@ export function CrewBoard({
   const pct = Math.round((done / 9) * 100);
 
   return (
-    <section id="crew" className="mx-auto max-w-[1240px] px-5">
+    <section className="mx-auto max-w-[1240px] px-5">
       <div className="slab-ink px-6 py-9 sm:px-10 sm:py-12">
         <div className="mb-9 flex flex-col gap-6 border-b border-[var(--line-ink)] pb-7 sm:flex-row sm:items-end sm:justify-between">
           <div>

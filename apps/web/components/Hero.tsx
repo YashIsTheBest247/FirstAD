@@ -34,13 +34,17 @@ export function Hero({ health }: { health: HealthStatus | null }) {
         <Perforations side="left" />
         <Perforations side="right" />
 
-        <div className="relative px-6 pt-24 pb-8 sm:px-14 sm:pt-28">
-          <h1 className="max-w-5xl">
-            <span className="block text-[clamp(2.7rem,8.4vw,6.4rem)] leading-[0.94]">
+        <div className="relative px-6 pt-20 pb-8 sm:px-14 sm:pt-24">
+          {/* The size term is capped well below the container width. A larger
+              viewport factor scales the type faster than the box grows, and
+              the panel clips rather than scrolls, so the line simply
+              disappeared off the right edge on a wide screen. */}
+          <h1 className="max-w-[min(100%,58rem)] [overflow-wrap:anywhere]">
+            <span className="block text-[clamp(2.2rem,6vw,4.75rem)] leading-[0.96]">
               <span className="display text-[var(--lime)]">Where </span>
               <span className="script text-white">Script</span>
             </span>
-            <span className="block text-[clamp(2.7rem,8.4vw,6.4rem)] leading-[0.94]">
+            <span className="block text-[clamp(2.2rem,6vw,4.75rem)] leading-[0.96]">
               <span className="script text-white">Meets </span>
               <span className="display text-[var(--lime)]">Schedule</span>
             </span>
@@ -52,7 +56,7 @@ export function Hero({ health }: { health: HealthStatus | null }) {
 
           {/* Bottom band: a headline stat on the left, live provider state on
               the right, mirroring the reference's stat and play-button pair. */}
-          <div className="mt-16 flex flex-col gap-8 sm:mt-24 sm:flex-row sm:items-end sm:justify-between">
+          <div className="mt-12 flex flex-col gap-8 sm:mt-16 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-xs">
               <p className="text-[38px] leading-none text-white">
                 <span className="script">Nine</span>
