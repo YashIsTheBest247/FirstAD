@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   getCrew,
   getDemo,
-  getHealth,
   getRun,
   getRuns,
   getSample,
@@ -17,6 +16,7 @@ import { ClearancePanel } from "@/components/ClearancePanel";
 import { CrewBoard } from "@/components/CrewBoard";
 import { Hero } from "@/components/Hero";
 import { IntroVideo, shouldPlayIntro } from "@/components/IntroVideo";
+import { WakingOverlay, useBackendWake } from "@/components/BackendWake";
 import { Nav } from "@/components/Nav";
 import { Deliverables, Footer, StatsBento, TheProblem } from "@/components/Marketing";
 import {
@@ -119,14 +119,23 @@ export default function Home() {
   }, [showPackage]);
 
   useEffect(() => {
-    if (shouldPlayIntro()) setIntroOpen(true);
+    // Deferred for the same reason as the permalink load below: this decides
+    // from sessionStorage, and setting state during mount cascades a render.
+    const timer = window.setTimeout(() => {
+      if (shouldPlayIntro()) setIntroOpen(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
+  // Polls /api/health on a twelve minute cycle, which sits inside the fifteen
+  // minute idle window the free instance sleeps after, and reports whether the
+  // API is awake yet.
+  const wakeState = useBackendWake(setHealth);
+
   useEffect(() => {
-    void getHealth().then(setHealth);
     getCrew()
       .then(setCrew)
-      .catch(() => setError("Could not reach the First AD API. Is the backend running?"));
+      .catch(() => undefined);
     refreshRuns();
 
     // A permalink opens straight into that package. Deferred out of the effect
@@ -137,7 +146,7 @@ export default function Home() {
 
     const timer = window.setTimeout(() => void openRun(requested), 0);
     return () => window.clearTimeout(timer);
-  }, [openRun, refreshRuns]);
+  }, [openRun, refreshRuns, wakeState]);
 
   const run = useCallback(
     async (input: {
@@ -191,6 +200,7 @@ export default function Home() {
 
   return (
     <main>
+      <WakingOverlay state={wakeState} />
       <IntroVideo open={introOpen} onClose={() => setIntroOpen(false)} />
       <Nav />
       <Hero health={health} onReplayIntro={() => setIntroOpen(true)} />

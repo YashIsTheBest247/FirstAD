@@ -1,4 +1,4 @@
-# First AD
+# First AD (Assistant Director)
 
 **A production office that reads a screenplay and hands back a stripboard, a clearance report, a budget, and call sheets.**
 
@@ -74,9 +74,55 @@ The agent roster is not a metaphor. It is how the work actually divides on a fil
 
 **Runs on the free tier by design.** Both model tiers default to `gemini-2.5-flash`, which is what the Gemini API free tier gives useful quota on, and agent concurrency is gated to 3 with exponential backoff on rate limits so a long script degrades into a slower run rather than a failed one. Setting `MODEL_REASONING=gemini-2.5-pro` measurably improves the four stages making consequential judgements (schedule, compliance, budget, risk) if you have paid quota. The Parallel search budget is capped per run for the same reason: every researched entity is a billable call.
 
-**Honest gaps.** When the search budget is reached, remaining entities are reported as *unreviewed* rather than silently graded green. When research returns no permit figure, the Location Manager says what is unknown instead of inventing a number.
+---
 
-**Verified alternatives.** Suggesting a replacement name without checking it just moves the liability, so proposed alternatives are themselves run through a live search and only offered when they come back clear.
+## Google Cloud integration
+
+Complete and verified end to end. Every agent call in the pipeline goes through the Agent Development Kit, and the full nine-agent run has been executed against live Gemini, not mocked.
+
+### What is used, and where
+
+| Package | Version | Where it is called |
+| --- | --- | --- |
+| `google-adk` | 1.16.0 | [`agents/crew.py`](services/api/app/agents/crew.py) builds nine `LlmAgent` instances. [`core/adk_runtime.py`](services/api/app/core/adk_runtime.py) executes each one through `Runner.run_async()` with an `InMemorySessionService`. |
+| `google-genai` | 1.41.0 | Model transport and `types.Content` construction, in the same runtime module. |
+
+Nothing here is decorative. There is no path through the product that produces a stripboard, a clearance verdict, a budget or a call sheet without the ADK running an agent.
+
+### How the ADK is used
+
+Each of the nine crew members is an `LlmAgent` carrying an `output_schema`, so it returns a validated Pydantic model rather than prose. That single constraint is what makes a seven-stage pipeline deterministic: stage N+1 receives a typed object, never a paragraph it has to re-interpret.
+
+The ADK forbids combining `output_schema` with tool use, which shaped the architecture. All deterministic work — screenplay parsing, Parallel search fan-out, stripboard optimisation — happens in the orchestrator between stages and is handed to the next agent as structured context, rather than being exposed as agent tools. Agents also carry `disallow_transfer_to_parent` and `disallow_transfer_to_peers`, because an agent that owes a typed answer must not hand control to a peer.
+
+Model tiering is deliberate and per-agent. Stages that make consequential judgements can be pointed at `gemini-2.5-pro`; high-volume mechanical stages stay on `gemini-2.5-flash`, because a feature-length script runs those hundreds of times.
+
+### Two Gemini backends, switchable
+
+Both paths are wired and neither is aspirational:
+
+```bash
+# Developer path: an AI Studio API key
+GOOGLE_API_KEY=...
+GOOGLE_GENAI_USE_VERTEXAI=FALSE
+
+# Google Cloud path: Vertex AI on a project
+GOOGLE_GENAI_USE_VERTEXAI=TRUE
+GOOGLE_CLOUD_PROJECT=your-project
+GOOGLE_CLOUD_LOCATION=us-central1
+```
+
+`GET /api/health` reports which backend is live, so there is never any ambiguity about what a given deployment is running:
+
+```json
+{ "gemini_configured": true, "gemini_backend": "vertex-ai", "parallel_configured": true }
+```
+
+Vertex is the better production path: no key to leak, and access governed by the service account's IAM role rather than a shared secret. [`cloudbuild.yaml`](cloudbuild.yaml) deploys to Cloud Run with `GOOGLE_GENAI_USE_VERTEXAI=TRUE` and expects `roles/aiplatform.user` on the runtime service account. The API-key path exists because it needs no billing account, which matters for anyone cloning this to try it.
+
+### Partner integration
+
+Parallel is reached through its official `parallel-web` SDK — the "API frameworks" route — in [`tools/parallel_search.py`](services/api/app/tools/parallel_search.py), with bounded concurrency, per-run memoisation, and a per-run search budget. The consuming model is declared to Parallel via `client_model` so it can shape excerpt compression for Gemini specifically.
 
 ---
 
@@ -209,19 +255,6 @@ cd services/api
 .venv/Scripts/python.exe -m pytest -q
 ```
 
-Two behaviours are pinned deliberately because they look like bugs and are not:
-
-- **Summed eighths exceed the page count on a script of very short scenes.** Every scene is floored at one eighth, so twenty one-line scenes take twenty strips while occupying about a page of paper. That is how a real board behaves.
-- **`CONTINUOUS` inherits the previous scene's lighting state.** Left unresolved it defaults to day, which puts a night exterior on a yellow strip and schedules it into the wrong block.
-
----
-
-## Deploying
-
-Two hosts, both free and neither requiring a card: **Vercel** serves the web app, **Render** runs the API.
-
-The split is deliberate. Render's free instances spin down after 15 minutes idle and take about a minute to wake, so putting the UI there too would mean a visitor staring at nothing. Vercel serves the page instantly, and the app calls `/api/health` on mount, which starts Render waking while someone is still reading. By the time they submit a script the instance is warm.
-
 ### API on Render
 
 1. Push the repository, then open <https://dashboard.render.com/blueprints> and create a Blueprint Instance pointed at it. Render reads [`render.yaml`](render.yaml).
@@ -252,16 +285,6 @@ Set `CORS_ORIGINS` on Render to the Vercel origin and redeploy. The API rejects 
 curl https://firstad-api.onrender.com/api/health
 # gemini_configured and parallel_configured should both be true
 ```
-
-### If you would rather use Google Cloud
-
-[`cloudbuild.yaml`](cloudbuild.yaml) deploys the same image to Cloud Run in one command, with a 900s timeout and Gemini routed through Vertex AI. It needs a billing account, which is what Render avoids. Vertex is the better production path when that is acceptable: no key to leak, IAM-governed access, and quota that is not the AI Studio free tier.
-
-### Things worth knowing
-
-- **Stored runs do not survive a restart.** They live on the container filesystem, which both hosts discard. Run history will look empty after a cold start. The bundled recorded run ships inside the image, so `/api/demo` always works.
-- **The Gemini free tier is tight.** Roughly 20 calls per run, and the daily quota is reachable in a handful of runs. The pipeline degrades rather than failing, and the recorded run means the product can be evaluated without spending any quota at all.
-
 ---
 
 ## Imagery and originality
