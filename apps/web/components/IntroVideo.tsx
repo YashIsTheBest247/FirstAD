@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 /**
  * The title card that plays on arrival.
@@ -16,9 +16,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
  *   3. Skip is always reachable: a visible button, the Escape key, and a
  *      hard bail if the video has not started within a few seconds.
  *
- * Autoplay is muted because every browser blocks audible autoplay until the
- * visitor has interacted with the page. The sound toggle is offered instead,
- * so a pitch video with voiceover is one click from being heard.
+ * Playback is muted and stays muted. Every browser blocks audible autoplay
+ * until the visitor has interacted with the page, so an unmuted video would
+ * simply refuse to start. Cut the film to work without sound.
  */
 
 const SEEN_KEY = "firstad:intro-seen";
@@ -34,8 +34,9 @@ export function IntroVideo({
   onClose: () => void;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [muted, setMuted] = useState(true);
-  const [started, setStarted] = useState(false);
+  // A ref rather than state: this only guards the bail-out timer, and nothing
+  // renders from it, so storing it in state would force a render for nothing.
+  const startedRef = useRef(false);
 
   const close = useCallback(() => {
     try {
@@ -68,19 +69,17 @@ export function IntroVideo({
   // the file or the browser is refusing. Get out of the way rather than
   // showing a black rectangle.
   useEffect(() => {
-    if (!open || started) return;
+    if (!open) return;
     const timer = window.setTimeout(() => {
+      if (startedRef.current) return;
       if (!videoRef.current || videoRef.current.currentTime === 0) close();
     }, START_TIMEOUT_MS);
     return () => window.clearTimeout(timer);
-  }, [open, started, close]);
+  }, [open, close]);
 
   useEffect(() => {
-    if (!open) {
-      setStarted(false);
-      setMuted(true);
-      return;
-    }
+    if (!open) return;
+    startedRef.current = false;
     const video = videoRef.current;
     if (!video) return;
     video.currentTime = 0;
@@ -93,7 +92,7 @@ export function IntroVideo({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black"
+      className="fixed inset-0 z-[200] h-screen w-screen overflow-hidden bg-black"
       role="dialog"
       aria-modal="true"
       aria-label="Intro film"
@@ -101,25 +100,17 @@ export function IntroVideo({
       <video
         ref={videoRef}
         src={src}
-        className="h-full w-full object-contain"
+        className="absolute inset-0 h-full w-full object-cover"
         autoPlay
-        muted={muted}
+        muted
         playsInline
         preload="auto"
-        onPlaying={() => setStarted(true)}
+        onPlaying={() => {
+          startedRef.current = true;
+        }}
         onEnded={close}
         onError={close}
       />
-
-      {/* Sound, bottom left. Offered rather than forced, because the browser
-          will not allow audible autoplay anyway. */}
-      <button
-        type="button"
-        onClick={() => setMuted((m) => !m)}
-        className="press absolute bottom-6 left-6 rounded-full border border-white/30 bg-black/45 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-white backdrop-blur-sm hover:border-white/60 sm:bottom-8 sm:left-8"
-      >
-        {muted ? "Sound on" : "Sound off"}
-      </button>
 
       {/* Skip, bottom right. */}
       <button
