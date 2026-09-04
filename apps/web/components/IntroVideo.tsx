@@ -134,7 +134,17 @@ export function IntroVideo({
  */
 export function shouldPlayIntro(): boolean {
   if (typeof window === "undefined") return false;
+
+  // Not on phones. Three reasons, all of them real: the film is a meaningful
+  // download on mobile data, iOS refuses autoplay outright in Low Power Mode
+  // so the overlay would just stall and bail, and object-cover crops a
+  // landscape frame savagely into a portrait viewport.
+  if (window.matchMedia?.("(max-width: 767px)").matches) return false;
+
+  // A reduced-motion preference is a request not to be shown unsolicited
+  // full-screen movement.
   if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return false;
+
   try {
     return sessionStorage.getItem(SEEN_KEY) !== "1";
   } catch {

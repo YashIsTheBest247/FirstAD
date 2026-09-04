@@ -101,12 +101,24 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Matches the fixed bar, which is shorter on a phone because the role line
+   under the wordmark is hidden below sm. */
 #top,
 #crew,
 #how,
 #results,
 #submit {
-  scroll-margin-top: 88px;
+  scroll-margin-top: 68px;
+}
+
+@media (min-width: 640px) {
+  #top,
+  #crew,
+  #how,
+  #results,
+  #submit {
+    scroll-margin-top: 88px;
+  }
 }
 
 html,
