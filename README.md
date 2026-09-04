@@ -218,23 +218,49 @@ Two behaviours are pinned deliberately because they look like bugs and are not:
 
 ## Deploying
 
-Frontend on Vercel, API on Cloud Run, which keeps the model calls inside Google Cloud.
+Two hosts, both free and neither requiring a card: **Vercel** serves the web app, **Render** runs the API.
+
+The split is deliberate. Render's free instances spin down after 15 minutes idle and take about a minute to wake, so putting the UI there too would mean a visitor staring at nothing. Vercel serves the page instantly, and the app calls `/api/health` on mount, which starts Render waking while someone is still reading. By the time they submit a script the instance is warm.
+
+### API on Render
+
+1. Push the repository, then open <https://dashboard.render.com/blueprints> and create a Blueprint Instance pointed at it. Render reads [`render.yaml`](render.yaml).
+2. When prompted, set `GOOGLE_API_KEY` and `PARALLEL_API_KEY`. They are marked `sync: false` so no secret is ever committed.
+3. Leave `CORS_ORIGINS` for now; the web origin does not exist yet.
+
+The image builds from the repository root with `-f services/api/Dockerfile`, because the API resolves `samples/` relative to the repo layout.
+
+### Web app on Vercel
 
 ```bash
-# API. Build from the repository root, not from services/api.
-gcloud run deploy firstad-api \
-  --source . \
-  --region us-central1 \
-  --set-env-vars "GOOGLE_GENAI_USE_VERTEXAI=TRUE,GOOGLE_CLOUD_PROJECT=$PROJECT" \
-  --set-secrets "PARALLEL_API_KEY=parallel-api-key:latest"
+cd apps/web && npx vercel --prod
 ```
 
-Then set `CORS_ORIGINS` on the API to the deployed web origin, and `NEXT_PUBLIC_API_BASE` on Vercel to the Cloud Run URL.
+Root directory `apps/web`, and one environment variable:
 
-Two caveats worth knowing before you deploy:
+```
+NEXT_PUBLIC_API_BASE=https://firstad-api.onrender.com
+```
 
-- Stored runs live on the container filesystem, which Cloud Run does not persist across instances. For a demo that is fine; for anything real, mount GCS or point `RUN_STORE_DIR` at a volume.
-- A full run can exceed Cloud Run's default 300s request timeout on a feature-length script. Raise `--timeout` to 900.
+Never put a provider key on Vercel. Anything prefixed `NEXT_PUBLIC_` is compiled into the browser bundle.
+
+### Close the loop
+
+Set `CORS_ORIGINS` on Render to the Vercel origin and redeploy. The API rejects the browser until the two match.
+
+```bash
+curl https://firstad-api.onrender.com/api/health
+# gemini_configured and parallel_configured should both be true
+```
+
+### If you would rather use Google Cloud
+
+[`cloudbuild.yaml`](cloudbuild.yaml) deploys the same image to Cloud Run in one command, with a 900s timeout and Gemini routed through Vertex AI. It needs a billing account, which is what Render avoids. Vertex is the better production path when that is acceptable: no key to leak, IAM-governed access, and quota that is not the AI Studio free tier.
+
+### Things worth knowing
+
+- **Stored runs do not survive a restart.** They live on the container filesystem, which both hosts discard. Run history will look empty after a cold start. The bundled recorded run ships inside the image, so `/api/demo` always works.
+- **The Gemini free tier is tight.** Roughly 20 calls per run, and the daily quota is reachable in a handful of runs. The pipeline degrades rather than failing, and the recorded run means the product can be evaluated without spending any quota at all.
 
 ---
 

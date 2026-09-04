@@ -1,0 +1,62 @@
+# Render blueprint for the First AD API.
+#
+# Deploy: https://dashboard.render.com/blueprints -> New Blueprint Instance,
+# point it at this repository. Render reads this file and creates the service.
+#
+# Free tier, no card required. The trade-off is that a free instance spins down
+# after 15 minutes idle and takes about a minute to wake. The web app calls
+# /api/health as soon as it loads, which starts that wake-up while someone is
+# still reading the page, so the first real request lands on a warm instance.
+
+services:
+  - type: web
+    name: firstad-api
+    runtime: docker
+
+    # The image has to build from the repository root: the API resolves the
+    # sample screenplay and the bundled recorded run relative to the repo
+    # layout, three levels above the app package.
+    dockerfilePath: ./services/api/Dockerfile
+    dockerContext: .
+
+    plan: free
+    region: oregon
+
+    healthCheckPath: /api/health
+
+    envVars:
+      # Set these in the Render dashboard, not here. Marked sync:false so the
+      # blueprint never carries a secret and Render prompts for them instead.
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: PARALLEL_API_KEY
+        sync: false
+
+      # Where the browser calls from. Must match the deployed web origin
+      # exactly or every request is blocked by CORS.
+      - key: CORS_ORIGINS
+        sync: false
+
+      # Staying on the Gemini API key rather than Vertex, because Vertex needs
+      # a billing account.
+      - key: GOOGLE_GENAI_USE_VERTEXAI
+        value: "FALSE"
+
+      # Both tiers on flash. The free tier gives usable quota on flash and
+      # almost none on pro, and a run that degrades is worse than a slow one.
+      - key: MODEL_REASONING
+        value: gemini-2.5-flash
+      - key: MODEL_FAST
+        value: gemini-2.5-flash
+
+      # Free-tier quota is per minute as well as per day, so the crew is kept
+      # narrow deliberately. A slower run beats a 429.
+      - key: MAX_AGENT_CONCURRENCY
+        value: "2"
+      - key: PARALLEL_MAX_CONCURRENCY
+        value: "3"
+      - key: MAX_RESEARCHED_ENTITIES
+        value: "12"
+
+      - key: RUN_STORE_DIR
+        value: /tmp/runs
