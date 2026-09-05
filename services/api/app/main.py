@@ -9,7 +9,10 @@ from __future__ import annotations
 
 import json
 import logging
+import asyncio
+import contextlib
 import re
+from contextlib import asynccontextmanager
 from datetime import date
 from pathlib import Path
 from typing import AsyncIterator
@@ -22,6 +25,7 @@ from pydantic import BaseModel, Field
 from app.agents.crew import CREW_ROLES
 from app.core.config import get_settings
 from app.core.exports import EXPORTS
+from app.core.keepalive import keepalive_loop, public_url
 from app.core.pdf import PDF_DOCUMENTS
 from app.core.store import RunStore
 from app.pipeline import PipelineRun
@@ -32,7 +36,20 @@ log = logging.getLogger(__name__)
 SAMPLES_DIR = Path(__file__).resolve().parents[3] / "samples"
 RECORDED_RUN = SAMPLES_DIR / "recorded-run.json"
 
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    """Run the self-ping for as long as the service is up."""
+    task = asyncio.create_task(keepalive_loop())
+    try:
+        yield
+    finally:
+        task.cancel()
+        with contextlib.suppress(asyncio.CancelledError):
+            await task
+
+
 app = FastAPI(
+    lifespan=lifespan,
     title="First AD",
     description="A production office that reads a screenplay and returns a pre-production package.",
     version="0.1.0",
@@ -107,6 +124,7 @@ async def health() -> dict:
         "gemini_configured": settings.has_gemini,
         "gemini_backend": "vertex-ai" if settings.google_genai_use_vertexai else "api-key",
         "parallel_configured": settings.has_parallel,
+        "keepalive": public_url() is not None,
         "models": {"reasoning": settings.model_reasoning, "fast": settings.model_fast},
     }
 

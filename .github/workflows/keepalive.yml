@@ -1,0 +1,49 @@
+# Keeps the API awake, and wakes it if it has already stopped.
+#
+# The service self-pings while it is running, and the web app polls it while
+# somebody has the page open. Neither of those can wake an instance that has
+# already been stopped for idleness, because there is no process left to run a
+# timer and no browser pointed at it. This runs on GitHub's infrastructure, so
+# it works regardless.
+#
+# GitHub schedules on free runners are best-effort and can drift by several
+# minutes, which is why the interval is well inside the fifteen minute window
+# rather than close to it.
+
+name: Keep the API awake
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: keepalive
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Ping the health endpoint
+        run: |
+          URL="${{ vars.API_BASE_URL || 'https://firstad-api.onrender.com' }}"
+
+          # A sleeping instance takes about a minute to come back, so the
+          # first attempt is given room rather than being treated as failure.
+          for attempt in 1 2 3; do
+            code=$(curl -s -o /tmp/body -w "%{http_code}" --max-time 90 "$URL/api/health" || echo 000)
+            echo "attempt $attempt -> HTTP $code"
+            if [ "$code" = "200" ]; then
+              cat /tmp/body
+              exit 0
+            fi
+            sleep 20
+          done
+
+          echo "API did not answer after three attempts"
+          exit 1
